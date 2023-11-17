@@ -1,0 +1,40 @@
+{
+  "name": "AIRCLASH",
+  "short_name": "AIRCLASH",
+  "start_url": "/",
+  "background_color": "#0093ff",
+  "display": "standalone",
+  "orientation": "landscape",
+  "icons": [
+    {
+      "src": "styles/default/logo-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "styles/default/logo-256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "styles/default/logo-128.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "styles/default/logo-96.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#000000",
+  "display_override": [
+    "fullscreen",
+    "standalone"
+  ],
+  "categories": [
+    "games"
+  ],
+  "description": "Awesome Online Multiplayer Plane Shooter Game"
+}
