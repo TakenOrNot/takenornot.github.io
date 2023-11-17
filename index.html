@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>ΛIRCLΛSH</title>
+    <link id="ui-styling" rel="stylesheet" type="text/css" href="styles/default/style.css?v=1700238473390" />
+    <!--meta name="viewport" content="width=device-width,initial-scale=1.0"-->
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, viewport-fit=cover">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <!-- possible content values: default, black or black-translucent -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <style>
+        html,
+        body {
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: 'B612', verdana,arial,helvetica,sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Teko" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=B612:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oxanium&display=swap" rel="stylesheet"> 
+    
+    <link rel="manifest" href="/manifest.json" />
+</head>
+
+<body style="overflow: hidden;">
+    <div id="root" style="width: 100%; height: 100%" class="landing-page bg">
+        
+        <div id="home" onclick="location.hash='#lobby'">
+            <div id="minilogoac" style="position: absolute; top: 10px; height: 34px; left: 50px;">
+                <img src="styles/default/logo.png" style="height: 100%;" /> 
+            </div>
+        
+        </div>
+        <div id="bg"></div>
+        <div id="bg2"></div>
+        <div id="loading" class="loading"></div>
+        
+        
+        
+        <img src="styles/default/blue-flag-mini.png" id="blue-flag-mini" style="display: none;" />
+        <img src="styles/default/red-flag-mini.png" id="red-flag-mini" style="display: none;" />
+        
+        <!-- canvas on which rendering takes place -->
+        <canvas id="canvas" style="position: absolute; left: 0; top: 0; z-index: 0; width: 0; height: 0; opacity: 0; display: none;"></canvas>
+        
+        <canvas id="renderCanvas"></canvas>
+
+        <!--<div id="cockpit_container">
+            <div id="xcockpit_left">
+            </div>-->
+                <!-- chat box -->
+                <div id="chat-container" class="paint-layer slideOutToLeft">
+                    
+                    <div id="chat" style="display: none;">
+                    </div>
+                    <div id="chat-input" style="display: none;">
+                        <input type="text" id="chat-input-textbox" placeholder="Click here or press &lt;Enter&gt; to chat" onfocus="this.placeholder = 'Type message, press <Enter> to send'"
+onblur="this.placeholder = 'Click here or press &lt;Enter&gt; to chat'; this.value=''"/>
+                    </div>
+                </div>
+            
+            <!--<div id="xcockpit_nose">
+            </div>-->
+            
+                <div id="spectating" class="paint-layer">
+                    <div id="specPrev">◁</div><div id="specNext">◁</div>
+                    <div style="display:block">
+                        Watching
+                        <div id="camsetup" class="btns-group">
+                            <!--<div class="btn" id="btn-camRotate"><div id="camRotate-toggle" class="disabled" title="Toggle Camera Auto Rotation"></div></div>-->
+                            <div class="btn" id="btn-camFlagTracking"><div id="camFlagTracking-toggle" title="Camera Mode">⚙️</div></div>
+                        </div>
+                    </div>
+                    <span id="avatar-bg-spec"></span><span class="avatar"></span><span id="hitBurning-spec"></span><span id="avatar-overlay-spec"></span><div id="spectating-player-name"></div>
+                    
+                </div>
+        
+                <!-- aircraft selection -->
+                <!-- TODO : pre-rotate images as needed (≠ css transform), also maybe bake in drop shadows -->
+                <div id="aircraftSelection-container" class="paint-layer slideOutToBottom gui-hidden">
+                    <div id="respawn-instruction">Pick a ship to get back in game</div>
+                    <div id="aircraftSelection" style="display: none;">
+                        <div class="selectable-ship" id="select-raptor"><div class="ship" title="F1"></div></div>
+                        <div class="selectable-ship" id="select-spirit"><div class="ship" title="F2"></div></div>
+                        <div class="selectable-ship" id="select-mohawk"><div class="ship" title="F3"></div></div>
+                        <div class="selectable-ship" id="select-tornado"><div class="ship" title="F4"></div></div>
+                        <div class="selectable-ship" id="select-prowler"><div class="ship" title="F5"></div></div>
+                    </div>
+                </div>
+            
+            <!--
+            <div id="xcockpit_right">
+            </div>-->
+                <!-- minimap -->
+                <div id="minimap" style="display: none" class="paint-layer slideInFromRight">
+                    <img src="styles/default/minimap.png" style="position: absolute; opacity: 0.3; width: 240px; height: 120px; width: 100%; height: 100%;" />
+                    <canvas id="minimap-canvas" style="position: absolute; padding: 4px; width: 240px; height: 120px; width: 100%; height: 100%;" width="240" height="120"></canvas>
+                    <div class="slider-wrapper">
+                        <input id="zoom-slider" type="range" min="10" max="45" value="16" step="1">
+                    </div>
+                </div>
+            
+        <!--</div>-->
+        
+        <div id="serverInfo-container" class="paint-layer slideOutToRight" style="display: none;">
+            <a id="btn-serverInfo-close"></a>
+            <!-- player list -->
+            <div id="server-info"></div>
+            <div id="server-info-players-count"></div><button id="btn-leaderboard"></button>
+            <div id="player-list-container">
+            <table id="player-list">
+            </table>
+            </div>
+        </div>
+        <!-- player context menu -->
+        <div id="player-context-menu" class="hide">
+            <div class="menu-item" id="menu-title">Player</div>
+            <div class="menu-item" id="menu-stats"></div>
+            <div class="menu-items-group" id="menu-player-chat-items">
+                <div class="menu-item" id="menu-whisper">Send private message</div>
+                <div class="menu-item" id="menu-ignore">Ignore</div>
+                <div class="menu-item" id="menu-unignore">Unignore</div>
+                <div class="menu-item" id="menu-votemute">Vote mute</div>
+            </div>
+            <div class="menu-items-group" id="menu-player-misc">
+                <div class="menu-item" id="menu-locate">Locate on minimap</div>
+                <div class="menu-item" id="menu-flag">Copy flag</div>
+                <div class="menu-item" id="menu-makeleader">Make Team Leader</div>
+                <div class="menu-item" id="menu-spectate">Spectate</div>
+            </div>
+            <div class="menu-items-group" id="menu-camera-mode">
+                <div class="menu-item" id="menu-trackPlayer">Track Player</div>
+                <div class="menu-item" id="menu-trackBothFlags">Track Both Flags</div>
+                <div class="menu-item" id="menu-trackBlueFlag">Track Blue Flag</div>
+                <div class="menu-item" id="menu-trackRedFlag">Track Red Flag</div>
+
+            </div>
+        </div>
+
+        
+
+        <!-- CTF and server info -->
+        <div id="ctf-info" class="paint-layer" style="display: none;">
+            <div id="ctf-score-container">
+                <span class="score-left">
+                    <span class="team-blue"></span>
+                    <span class="team-blue" id="blue-score">0</span>
+                </span>
+                <div id="game-time"></div>
+                <span class="score-right">
+                    <span class="team-red"></span>
+                    <span class="team-red" id="red-score">0</span>
+                </span>
+            </div>
+            <br />
+            <div class="team-blue-info">
+                <span class="team-blue" id="blue-flag-location">home</span><span id="blue-flag-carrier" class="player-name team-red"></span>
+                <span class="team-blue blue-flag"> </span>
+            </div>
+            &nbsp;&nbsp;&nbsp;
+            <div class="team-red-info">
+                <span class="team-red red-flag"> </span>
+                <span class="team-red" id="red-flag-location">home</span><span id="red-flag-carrier" class="player-name team-blue"></span>
+            </div>
+        </div>
+        <div id="server-message" class="paint-layer"  style="display: none">
+        </div>
+
+            
+        <!-- stats -->
+        <div id="stats" class="paint-layer slideOutToTop" style="display: none">
+            <span id="player-name"></span>
+            
+            <div id="avatar-bg"></div>
+            <div id="avatar"></div>
+            <div id="hitBurning"></div>
+            <div id="avatar-overlay"></div>
+            <div id="avatar-wings"></div>
+            
+            
+            <span id="stats-score">0</span><br />
+            
+            <div id="stats-kd">
+                <span id="stats-kills">0</span>
+                <span id="kdsep">&nbsp;/&nbsp;</span>
+                <span id="stats-deaths">0</span>
+            </div>
+            
+            
+            
+            
+        </div>
+
+        <div id="statsPing-container"><span id="stats-ping"></span></div>
+        
+        <div id="gui-toggle" class="paint-layer" style="display:none;"><img src="styles/default/focus.png" id="focus" title="Toggle Focus Mode (g)"/></div>
+        <!-- upgrade selection -->
+        <div id="upgradeSelection" class="paint-layer slideOutToLeft" style="display: none">
+            
+            
+            
+            <div id="select-speed" class="upgradeType" title="Speed upgrade (1)"><span id="stats-speed"></span>
+                
+            </div>
+            <div id="select-defense" class="upgradeType" title="Defense upgrade (2)"><span id="stats-defense"></span>
+            </div>
+            <div id="select-energy" class="upgradeType" title="Energy regeneration upgrade (3)"><span id="stats-energy"></span></div>
+            <div id="select-missile" class="upgradeType" title="Missile speed upgrade (4)"><span id="stats-missile"></span></div>
+            
+            <div id="stats-upgrades" class="inactive">0</div>
+            <div id="drop-upgrade" title="Drop 1 upgrade (x)"></div>
+        </div>
+        <!-- debug information -->
+        <div id="debugPanel" style="display: none">
+            <div>Lag: <span id="lag-in-ms"></span> ms</div>
+            <div>Skipped frames: <span id="skipped-frames"></span></div>
+        </div>
+        
+        <div id="nameAndGame-container" class="outer">
+            
+            <div class="middle">
+                
+                <!-- game and name selection -->
+                <div id="nameAndGame">
+                    <div id="logoac">
+                    <img src="styles/default/logo.png" style="width: 200px; margin-top: -10px; padding-bottom: 10px;" /> 
+                    </div>
+                    <div id="nameAndSettings" style="padding: 0 0 1em 0;">
+                        <input id="playerName" spellcheck="false" type="text" placeholder="Enter Your Pilot Name" maxlength="20"> 
+                    </div>
+                    <a id="btn-settings" class="btn"></a>
+                    <a id="btn-about-close" class="btn"></a>
+                    
+                    <select id="styleSelect" style="display:none;">
+                        <option value="no-bitmaps">No bitmaps</option>
+                        <option value="styles/default/" selected>Default</option>
+                        <option value="custom">Custom</option>
+                    </select>
+                                    
+                    <select id="zoomSelect" style="display:none;">
+                        <option value="0.4">0.4</option>
+                        <option value="0.6">0.6</option>
+                        <option value="0.8" selected="selected">0.8</option>
+                        <option value="1">No zoom</option>
+                    </select>
+                        <div id="games-container">            
+                        <table >
+                            <thead>
+                                <tr style="text-align: left; line-height: 2em; position: sticky;
+top: 0;
+box-shadow: 0 2px 2px -1px rgba(176, 255, 192, 0.4);
+background: #0a2600;">
+                                    <th style="padding: 0 1em;">Region</th>
+                                    <th style="padding: 0 1em;">Game</th>
+                                    <th style="padding: 0 1em; text-align: center;">Players</th>
+                                    <th style="padding: 0 2em 0 1em; text-align: center;">Bots</th>
+                                </tr>
+                            </thead>
+                            <tbody id="games">
+                               
+                            </tbody>
+                        </table>
+                        </div>
+                        <div id="nameAngGameBtnsContainer">
+                            <!-- TODO : remove width:100% when login will be implemented -->
+                            <div class="start-button btn-left" style="width: 100%;">
+                                <input id="startButton" type="button" value="play as guest"/>
+                            </div>
+                            <!-- TODO : remove display:none when login will be implemented -->
+                            <div id="externalLogin" class="btn-left" style="display:none;">
+                                <span id="loginMessage" style="display: none;">Login to save your progress: </span>
+                                <input type="button" value="Login" id="loginButton" />
+                            </div>
+                        </div>
+                    
+                <div id="settings-container" style="display:none;" >
+                    <h2 id="heading-settings">Settings</h2>
+                    <div id="settings" class="force-show-scrollbars">
+                    </div>
+                    <div id="settingsBtnsContainer">
+                        <div class="cancel-settings btn-left">
+                            <input id="cancelButton" type="button" value="Cancel"/>
+                        </div>
+                        <div class="save-settings btn-left">
+                            <input id="saveButton" type="button" value="Save"/>
+                        </div>
+                    </div>
+                </div>    
+                
+                <div id="about-container" style="display:none;" >
+                    <h2 id="heading-about">About</h2>
+                    <div id="about" class="force-show-scrollbars">
+                        <div class="image-holder" style="height: 160px;
+background: url(./styles/default/planeaxis.png);
+width: 235px;
+float: left; margin: 10px; opacity: .75;">
+                            </div>
+                        This client is based on Spatie's <a target="_blank" href="https://github.com/spatiebot/ab-client">ab-client</a>, and is meant to connect to Wight's <a target="_blank" href="https://github.com/wight-airmash/ab-server/">ab-server</a>.
+                        <br/><br/>
+                        <small>It will reply to -SWAM-PING command, but only if it has been written in capital letters.</small>
+                        <hr class="clearfix"/>
+                        <br/><br/>
+                        It has some pretty cool features, including :<br/><br/>
+                        <small>
+                            Enhanced spectator mode : 
+                            <ul>
+                                <li>Can tilt spectator camera by click-dragging</li>
+                                <li>Can zoom in/out spectator camera with mouse wheel or pinch on trackpads</li>
+                                <li>Auto spectate CTF flag carrier in spectate mode (click ⚙️ button bottom center to toggle the camera mode menu, then select mode, alternatively it's possible to click carrier name top center to track only one flag)</li>
+                            </ul>
+                            Enhanced Chat :
+                            <ul>
+                                <li>Player movements/fire/special keys are locked when starting chat (not a bug!), this allows us to use the arrow keys to adjust the text cursor position in chat input if needed, and plane can keep going while typing (after sending chat message, just press locked keys again to unlock)</li>
+                                <li>Chat messages are timestamped</li>
+                                <li>Server (Ground Control) and bots are ignored from the reply-to list</li>
+                                <li>Missed private messages count is shown in tab title when tab is inactive</li>
+                                <li>Chat smooth scroll option (false by default)</li>
+                                <li>When sending / receiving several DMs from / to the same player, messages are merged (sender/recipient and timestamp is shown only once), making better use of screen space</li>
+                                
+                            </ul>
+                            Handy hotkeys : 
+                            <ul>
+                                <li><span class="key">z</span> to toggle between two zoom levels</li>
+                                <li><span class="key">y</span> to drop flag (/drop) OR ask bot to pass flag (#drop), press twice to force drop (#dropnow)</li>
+                                <li><span class="key">c</span> to start team chat with "/t #" when leader, so you only have to type the bot command</li>
+                                <li><span class="key">g</span> to toggle Graphical User Interface (focus mode)</li>
+                            </ul>
+                            Enhanced controls :
+                            <ul>
+                                <li>When keeping <i>Special</i> key pressed (default <span class="key">Shift</span>), predator ship will boost again automatically when energy reaches 100%, without needing to release and press key again</li>
+                                <li>Pressing <i>Special</i> on touch devices will make pred ship go forward by default if forward / backward aren't active at this time</li>
+                            </ul>
+                            Graphics :
+                            <ul>
+                                <li>Day/Night cycle</li>
+                                <li>Cool slow-motion death fx</li>
+                                <li>Missile size is proportionnal to missile damage</li>
+                                <li>Plane thruster's flame size is proportionnal to player's speed upgrades count</li>
+                                <li>Nice BTR fire circle</li>
+                                Experimental (for now, must use -SWAM-PING or -AC-PING to share setting between AC clients) :
+                                <li>Custom color for plane and thruster (6 presets, available in all game modes but CTF)</li>
+                                <li>Rad pilot avatars (custom avatars available in all game modes but CTF)</li>
+                            </ul>
+                            Misc :
+                            <ul>
+                                <li>Prow radar shows stealthed prow player name</li>
+                                <li>Option to force players names to be ASCII characters (true by default) clientside (in case server allows non-ASCII player names), as non-ASCII characters mess with game readability, usability and can cause frame skips on weak/old machines</li>
+                                <li>Leaderboard shows playing players first, spectating players are sent to bottom of the ranking after about 30 seconds</li>
+                                <li>Handy player drop down menu entry to make another player team leader in CTF ("Make Team Leader" = #leader playerName)</li>
+                                <li>Local notifications when there's a CTF game with more than N humans players (5 by default, must accept notifications and keep a tab opened on lobby page)</li>
+                                <li>Direct connection to a server, so a server can be sent as a simple link or bookmarked (for example <a href="https://airclash.netlify.app/#US-ctf2">https://airclash.netlify.app/#US-ctf2</a>)</li>
+                                <li>Can be installed as a Progressive Web App on most recent systems / browsers</li>
+                            </ul>
+                        </small>
+                        <br/><br/>
+                        Some features are still missing :/<br/><br/>
+                        <small>
+                            <ul>
+                                <li>Sounds (will add at some point)</li>
+                                <li>Login (will add at some point)</li>
+                                
+                                <li>WebGPU support (not fully supported currently)</li>
+                                <li>Client-side lag mitigation (exists but probably could/should be improved) </li>
+                                <li>Touch devices compatibility (okayish iOS support (iOS 16), basic Android support with some bugs) </li>
+                                
+                                <li>In-game chat bubbles (might add at some point)</li>
+                            </ul>
+                        </small>
+
+                        <br/><br/>
+                        Compatibility and performances notes<br/><br/>
+                        <small>
+                            
+                            <ul>
+                                <li>Mac Intel / M1 : MacOS Yosemite (10.10) + Firefox 78, MacOS Catalina (10.15) + Safari 15; Performance issues seen on Mac Intel + Big Sur (11.6) + Chrome 111, seems fine on M1 + Chrome 111</li>
+                                <li>iPhone/iPad : iOS/iPadOS 16 + Safari 16</li>
+                                <li>Android : Android 12 + Chrome 110</li>
+
+                                <li>Windows PC : need some testing, probably runs best on Chrome and Edge (and other Chromium-based browsers), maybe Firefox</li>
+                                <li>Linux PC : need more testing, some issues to sort out</li>
+                                <li>Chrome OS : need some testing</li>
+                            </ul>
+                        </small>
+
+                        <br/><br/>
+                        Credits and thanks<br/><br/>
+                        <small>
+                        Wight, Spatie for the server and client codebases<br/>
+                        Testing and feedback : <br/> 
+                        Wight, SECVTOR, Sleep_Maker21, Flying Yeti, Zoinks, Bug, Alea, Star, Elven, Slick
+                        </small>
+                    </div>
+                    
+                </div>
+
+                </div>
+                
+            </div>
+        </div>
+        <!-- overlay for making the login stuff modal-->
+        <div id="overlay" style="display: none;"></div>
+        <!-- login to external services-->
+        <div id="loginselector" style="display:none;">
+            <div class="desc">
+                Use any of the following services to sign in<br>
+                to save your account progress and<br>
+                achievements.
+            </div>
+            <div class="signinwith">
+                Sign in with
+            </div>
+            <div class="buttons">
+                <span class="loginbutton button microsoft" id="login-microsoft" data-provider="1">
+                    Microsoft
+                    <div class="icon"></div>
+                    <div class="spacer"></div>
+                </span>
+                <span class="loginbutton button google" id="login-google" data-provider="2">
+                    Google
+                    <div class="icon"></div>
+                    <div class="spacer"></div>
+                </span>
+                <span class="loginbutton button twitter" id="login-twitter" data-provider="3">
+                    Twitter
+                    <div class="icon"></div>
+                    <div class="spacer"></div>
+                </span>
+                <span class="loginbutton button reddit" id="login-reddit" data-provider="4">
+                    Reddit
+                    <div class="icon"></div>
+                    <div class="spacer"></div>
+                </span>
+                <span class="loginbutton button twitch" id="login-twitch" data-provider="5">
+                    Twitch
+                    <div class="icon"></div>
+                    <div class="spacer"></div>
+                </span>
+            </div>
+            <div class="disclaimer">
+                We only require the absolute minimum<br>
+                permission set that each platform provides.<br>
+                See our <a href='/privacy' target='_blank' rel='noopener'>Privacy Policy</a> for more.
+            </div>
+        </div>
+        
+        <div id="footer">
+            &nbsp;&nbsp;✪&nbsp;&nbsp;
+            <div id="btn-about">About</div>
+        </div>
+        <div style="width: 100px; display: none;">
+            
+            <button id="inspectorToggle">BJS Inspector</button>
+        </div>    
+        <script src="browser-pack.js"></script>
+        
+    </div>
+</body>
+<script type="text/javascript">
+    if (navigator.wakeLock){
+        const requestWakeLock = async () => {
+            try {
+                const wakeLock = await navigator.wakeLock.request('screen');
+            } catch (err) {
+                    // The wake lock request fails - usually system-related, such as low battery.
+                console.log(`${err.name}, ${err.message}`);
+            }
+        }
+        requestWakeLock();
+    }
+</script>
+</html>
