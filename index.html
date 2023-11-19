@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <title>ΛIRCLΛSH</title>
-    <link id="ui-styling" rel="stylesheet" type="text/css" href="styles/default/style.css?v=1700244192160" />
+    <link id="ui-styling" rel="stylesheet" type="text/css" href="styles/default/style.css?v=1700415978109" />
     <!--meta name="viewport" content="width=device-width,initial-scale=1.0"-->
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, viewport-fit=cover">
     <meta name="mobile-web-app-capable" content="yes">
@@ -125,8 +125,12 @@ onblur="this.placeholder = 'Click here or press &lt;Enter&gt; to chat'; this.val
         </div>
         <!-- player context menu -->
         <div id="player-context-menu" class="hide">
-            <div class="menu-item" id="menu-title">Player</div>
-            <div class="menu-item" id="menu-stats"></div>
+            <div id="menu-header">
+                <div class="avatar"></div>
+                <div id="menu-title">Player</div>
+            </div>
+            
+            <div id="menu-stats"></div>
             <div class="menu-items-group" id="menu-player-chat-items">
                 <div class="menu-item" id="menu-whisper">Send private message</div>
                 <div class="menu-item" id="menu-ignore">Ignore</div>
