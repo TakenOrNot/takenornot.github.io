@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <title>ΛIRCLΛSH</title>
-    <link id="ui-styling" rel="stylesheet" type="text/css" href="styles/default/style.css?v=1700441020400" />
+    <link id="ui-styling" rel="stylesheet" type="text/css" href="styles/default/style.css?v=1701049231564" />
     <!--meta name="viewport" content="width=device-width,initial-scale=1.0"-->
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, viewport-fit=cover">
     <meta name="mobile-web-app-capable" content="yes">
@@ -117,7 +117,7 @@ onblur="this.placeholder = 'Click here or press &lt;Enter&gt; to chat'; this.val
             <a id="btn-serverInfo-close"></a>
             <!-- player list -->
             <div id="server-info"></div>
-            <div id="server-info-players-count"></div><button id="btn-leaderboard"></button>
+            <div id="server-info-players-count"></div><div id="btn-leaderboard"></div>
             <div id="player-list-container">
             <table id="player-list">
             </table>
@@ -279,7 +279,7 @@ background: #0a2600;">
                         <div id="nameAngGameBtnsContainer">
                             <!-- TODO : remove width:100% when login will be implemented -->
                             <div class="start-button btn-left" style="width: 100%;">
-                                <input id="startButton" type="button" value="play as guest"/>
+                                <div id="startButton" class="big-btn" type="button">play as guest</div>
                             </div>
                             <!-- TODO : remove display:none when login will be implemented -->
                             <div id="externalLogin" class="btn-left" style="display:none;">
