@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <title>ΛIRCLΛSH</title>
-    <link id="ui-styling" rel="stylesheet" type="text/css" href="styles/default/style.css?v=1701049231564" />
+    <link id="ui-styling" rel="stylesheet" type="text/css" href="styles/default/style.css?v=1701879108248" />
     <!--meta name="viewport" content="width=device-width,initial-scale=1.0"-->
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, viewport-fit=cover">
     <meta name="mobile-web-app-capable" content="yes">
@@ -12,6 +12,66 @@
 
     <!-- possible content values: default, black or black-translucent -->
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="schema.DC" href="https://purl.org/dc/elements/1.1/">
+    <link rel="schema.DCTERMS" href="https://purl.org/dc/terms/">
+    <meta name="DC.Format" content="text/html">
+    <meta name="DC.Type" content="Text">
+    <meta name="DC.Language" content="en">
+    <meta name="DC.Title" lang="en" content="AIRCLASH">
+    <meta name="DC.Description.Abstract" lang="en" content="multiplayer jet fighters game">
+    <meta name="DC.Date" content="2023-12-04">
+
+    <meta name="DC.Identifier" content="https://airclash.netlify.app/">
+    <meta name="DC.Publisher" content="AIRCLASH">
+    <meta name="DC.Source" content="https://airclash.netlify.app">
+
+    <meta name="DC.Creator" content="AIRCLASH">
+
+
+
+
+
+    <!-- Open Graph -->
+    
+    <meta property="og:rich_attachment" content="true">
+
+    <meta property="og:site_name" content="AIRCLASH">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="AIRCLASH">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:url" content="https://airclash.netlify.app/">
+    <meta property="og:description" content="multiplayer jet fighters game">
+
+    
+
+    <meta property="og:image" content="https://airclash.netlify.app/styles/default/og.jpg">
+    <meta property="og:image:width" content="899">
+    <meta property="og:image:height" content="472">
+    <meta property="og:image:type" content="image/jpg">
+
+
+
+
+
+
+
+
+    <!-- Twitter Card -->
+
+    <meta name="twitter:card" content="summary_large_image">
+    <!-- add twitter handle here -->
+    <meta name="twitter:site" content="https://airclash.netlify.app/"> 
+    <meta name="twitter:title" content="AIRCLASH"> 
+    <meta name="twitter:description" content="multiplayer jet fighters game">
+
+    <meta name="twitter:image" content="https://airclash.netlify.app/styles/default/og.jpg">
+
+    <meta name="twitter:dnt" content="on">
+    <meta name="description" content="multiplayer jet fighters game">
+    
+
+
 
     <style>
         html,
@@ -37,7 +97,10 @@
     <div id="root" style="width: 100%; height: 100%" class="landing-page bg">
         
         <div id="home" onclick="location.hash='#lobby'">
-            <div id="minilogoac" style="position: absolute; top: 10px; height: 34px; left: 50px;">
+            <div id="minilogoac" style="position: absolute;
+            top: -8px;
+            height: 50px;
+            left: 50px;">
                 <img src="styles/default/logo.png" style="height: 100%;" /> 
             </div>
         
@@ -238,7 +301,8 @@ onblur="this.placeholder = 'Click here or press &lt;Enter&gt; to chat'; this.val
                 <!-- game and name selection -->
                 <div id="nameAndGame">
                     <div id="logoac">
-                    <img src="styles/default/logo.png" style="width: 200px; margin-top: -10px; padding-bottom: 10px;" /> 
+                    <img src="styles/default/logo.png" style="width: 300px;
+                    margin-top: -40px; padding-top: 55px; padding-bottom: 0px;" /> 
                     </div>
                     <div id="nameAndSettings" style="padding: 0 0 1em 0;">
                         <input id="playerName" spellcheck="false" type="text" placeholder="Enter Your Pilot Name" maxlength="20"> 
