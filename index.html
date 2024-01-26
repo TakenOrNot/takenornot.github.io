@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <title>ΛIRΛIR</title>
-    <link id="ui-styling" rel="stylesheet" type="text/css" href="styles/default/style.css?v=1703002420714" />
+    <link id="ui-styling" rel="stylesheet" type="text/css" href="styles/default/style.css?v=1706284051054" />
     <!--meta name="viewport" content="width=device-width,initial-scale=1.0"-->
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, viewport-fit=cover">
     <meta name="mobile-web-app-capable" content="yes">
@@ -18,15 +18,16 @@
     <meta name="DC.Format" content="text/html">
     <meta name="DC.Type" content="Text">
     <meta name="DC.Language" content="en">
-    <meta name="DC.Title" lang="en" content="AIRCLASH">
-    <meta name="DC.Description.Abstract" lang="en" content="multiplayer jet fighters game">
+    <meta name="DC.Title" lang="en" content="AIRAIR">
+    <meta name="DC.Description.Abstract" lang="en" content="AirAir is a free-to-play jet fighters plane game with numerous game 
+    modes for every type of game player. Chill with friends, fight alongside your team for victory or build your own legend !">
     <meta name="DC.Date" content="2023-12-04">
 
     <meta name="DC.Identifier" content="https://airclash.netlify.app/">
-    <meta name="DC.Publisher" content="AIRCLASH">
+    <meta name="DC.Publisher" content="AIRAIR">
     <meta name="DC.Source" content="https://airclash.netlify.app">
 
-    <meta name="DC.Creator" content="AIRCLASH">
+    <meta name="DC.Creator" content="AIRAIR">
 
 
 
@@ -36,9 +37,9 @@
     
     <meta property="og:rich_attachment" content="true">
 
-    <meta property="og:site_name" content="AIRCLASH">
+    <meta property="og:site_name" content="AIRAIR">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="AIRCLASH">
+    <meta property="og:title" content="AIRAIR">
     <meta property="og:locale" content="en_US">
     <meta property="og:url" content="https://airclash.netlify.app/">
     <meta property="og:description" content="multiplayer jet fighters game">
@@ -62,7 +63,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <!-- add twitter handle here -->
     <meta name="twitter:site" content="https://airclash.netlify.app/"> 
-    <meta name="twitter:title" content="AIRCLASH"> 
+    <meta name="twitter:title" content="AIRAIR"> 
     <meta name="twitter:description" content="multiplayer jet fighters game">
 
     <meta name="twitter:image" content="https://airclash.netlify.app/styles/default/og.jpg">
@@ -157,11 +158,11 @@ onblur="this.placeholder = 'Click here or press &lt;Enter&gt; to chat'; this.val
                 <div id="aircraftSelection-container" class="paint-layer slideOutToBottom gui-hidden">
                     <div id="respawn-instruction">Pick a ship to get back in game</div>
                     <div id="aircraftSelection" style="display: none;">
-                        <div class="selectable-ship" id="select-raptor"><div class="ship" title="F1"></div></div>
-                        <div class="selectable-ship" id="select-spirit"><div class="ship" title="F2"></div></div>
-                        <div class="selectable-ship" id="select-mohawk"><div class="ship" title="F3"></div></div>
-                        <div class="selectable-ship" id="select-tornado"><div class="ship" title="F4"></div></div>
-                        <div class="selectable-ship" id="select-prowler"><div class="ship" title="F5"></div></div>
+                        <div class="selectable-ship" id="select-raptor"><div class="ship" title="EAGLE"></div></div>
+                        <div class="selectable-ship" id="select-spirit"><div class="ship" title="CHONKY"></div></div>
+                        <div class="selectable-ship" id="select-mohawk"><div class="ship" title="CHOPPA"></div></div>
+                        <div class="selectable-ship" id="select-tornado"><div class="ship" title="TAIGA"></div></div>
+                        <div class="selectable-ship" id="select-prowler"><div class="ship" title="SHARKY"></div></div>
                     </div>
                 </div>
             
@@ -221,7 +222,7 @@ onblur="this.placeholder = 'Click here or press &lt;Enter&gt; to chat'; this.val
         
 
         <!-- CTF and server info -->
-        <div id="ctf-info" class="paint-layer" style="display: none;">
+        <div id="ctf-info" class="paint-layer">
             <div id="ctf-score-container">
                 <span class="score-left">
                     <span class="team-blue"></span>
@@ -245,8 +246,9 @@ onblur="this.placeholder = 'Click here or press &lt;Enter&gt; to chat'; this.val
             </div>
         </div>
         <div id="server-message" class="paint-layer"  style="display: none">
+            
         </div>
-
+        <a id="btn-reconnect">TRY RECONNECT</a>
             
         <!-- stats -->
         <div id="stats" class="paint-layer slideOutToTop" style="display: none">
@@ -256,7 +258,7 @@ onblur="this.placeholder = 'Click here or press &lt;Enter&gt; to chat'; this.val
             <div id="avatar"></div>
             <div id="hitBurning"></div>
             <div id="avatar-overlay"></div>
-            <div id="avatar-overlay-overlay" class="easter_santa"></div>
+            <div id="avatar-overlay-overlay" class=""></div>
             <div id="avatar-wings"></div>
             
             
@@ -565,6 +567,10 @@ float: left; margin: 10px; opacity: .75;">
     /*global window, document, navigator, clearInterval, setInterval */
 
     var snowStorm = (function(window, document) {
+
+        if (!document.getElementById("avatar-overlay-overlay").classList.contains('easter_santa')){
+            return
+        }
 
     // --- common properties ---
 

@@ -1,6 +1,6 @@
 {
-  "name": "AIRCLASH",
-  "short_name": "AIRCLASH",
+  "name": "AIRAIR",
+  "short_name": "AIRAIR",
   "start_url": "/",
   "background_color": "#0093ff",
   "display": "standalone",
@@ -36,5 +36,5 @@
   "categories": [
     "games"
   ],
-  "description": "Awesome Online Multiplayer Plane Shooter Game"
+  "description": "AirAir is a free-to-play jet fighters plane game with numerous game modes for every type of game player. Chill with friends, fight alongside your team for victory or build your own legend !"
 }
