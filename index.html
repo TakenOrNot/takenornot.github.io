@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <title>ΛIRΛIR</title>
-    <link id="ui-styling" rel="stylesheet" type="text/css" href="styles/default/style.css?v=1712963821634" />
+    <link id="ui-styling" rel="stylesheet" type="text/css" href="styles/default/style.css?v=1728366640116" />
     <!--meta name="viewport" content="width=device-width,initial-scale=1.0"-->
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, viewport-fit=cover">
     <meta name="mobile-web-app-capable" content="yes">
@@ -130,7 +130,9 @@
                 <div id="chat-container" class="paint-layer slideOutToLeft">
                     
                     <div id="chat" style="display: none;">
+                        <div id="anchor"></div>
                     </div>
+                    
                     <div id="chat-input" style="display: none;">
                         <input type="text" id="chat-input-textbox" placeholder="Click here or press &lt;Enter&gt; to chat" onfocus="this.placeholder = 'Type message, press <Enter> to send'"
 onblur="this.placeholder = 'Click here or press &lt;Enter&gt; to chat'; this.value=''"/>
@@ -309,41 +311,43 @@ onblur="this.placeholder = 'Click here or press &lt;Enter&gt; to chat'; this.val
                     <div id="logoac">
                     <img src="styles/default/logo.png"/> 
                     </div>
-                    <div id="nameAndSettings" style="padding: 0 0 1em 0;">
-                        <input id="playerName" spellcheck="false" type="text" placeholder="Enter Your Pilot Name" maxlength="20"> 
-                    </div>
-                    <a id="btn-settings" class="btn"></a>
-                    <a id="btn-about-close" class="btn"></a>
-                    
-                    <select id="styleSelect" style="display:none;">
-                        <option value="no-bitmaps">No bitmaps</option>
-                        <option value="styles/default/" selected>Default</option>
-                        <option value="custom">Custom</option>
-                    </select>
-                                    
-                    <select id="zoomSelect" style="display:none;">
-                        <option value="0.4">0.4</option>
-                        <option value="0.6">0.6</option>
-                        <option value="0.8" selected="selected">0.8</option>
-                        <option value="1">No zoom</option>
-                    </select>
+
+                    <div id="landing-page-content">
+                        <div id="nameAndSettings" style="padding: 0 0 1em 0;">
+                            <input id="playerName" spellcheck="false" type="text" placeholder="Enter Your Pilot Name" maxlength="20"> 
+                        </div>
+                        <a id="btn-settings" class="btn"></a>
+                        <a id="btn-about-close" class="btn"></a>
+                        
+                        <select id="styleSelect" style="display:none;">
+                            <option value="no-bitmaps">No bitmaps</option>
+                            <option value="styles/default/" selected>Default</option>
+                            <option value="custom">Custom</option>
+                        </select>
+                                        
+                        <select id="zoomSelect" style="display:none;">
+                            <option value="0.4">0.4</option>
+                            <option value="0.6">0.6</option>
+                            <option value="0.8" selected="selected">0.8</option>
+                            <option value="1">No zoom</option>
+                        </select>
                         <div id="games-container">            
-                        <table >
-                            <thead>
-                                <tr style="text-align: left; line-height: 2em; position: sticky;
-top: 0;
-box-shadow: 0 2px 2px -1px rgba(255, 181, 176, 0.4);
-background: #260500">
-                                    <th style="padding: 0 1em;">Region</th>
-                                    <th style="padding: 0 1em;">Game</th>
-                                    <th style="padding: 0 1em; text-align: center;">Players</th>
-                                    <th style="padding: 0 2em 0 1em; text-align: center;">Bots</th>
-                                </tr>
-                            </thead>
-                            <tbody id="games">
-                               
-                            </tbody>
-                        </table>
+                            <table >
+                                <thead>
+                                    <tr style="text-align: left; line-height: 2em; position: sticky;
+    top: 0;
+    box-shadow: 0 2px 2px -1px rgba(255, 181, 176, 0.4);
+    background: #260500">
+                                        <th style="padding: 0 1em;">Region</th>
+                                        <th style="padding: 0 1em;">Game</th>
+                                        <th style="padding: 0 1em; text-align: center;">Players</th>
+                                        <th style="padding: 0 2em 0 1em; text-align: center;">Bots</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="games">
+                                
+                                </tbody>
+                            </table>
                         </div>
                         <div id="nameAngGameBtnsContainer">
                             <!-- TODO : remove width:100% when login will be implemented -->
@@ -356,8 +360,8 @@ background: #260500">
                                 <input type="button" value="Login" id="loginButton" />
                             </div>
                         </div>
-                    
-                <div id="settings-container" style="display:none;" >
+                </div>    
+                <div id="settings-container">
                     <h2 id="heading-settings">Settings</h2>
                     <div id="settings" class="force-show-scrollbars">
                     </div>
@@ -371,7 +375,7 @@ background: #260500">
                     </div>
                 </div>    
                 
-                <div id="about-container" style="display:none;" >
+                <div id="about-container">
                     <h2 id="heading-about">About</h2>
                     <div id="about" class="force-show-scrollbars">
                         <div class="image-holder" style="height: 160px;
@@ -421,7 +425,7 @@ float: left; margin: 10px; opacity: .75;">
                                 <li>Missile size is proportionnal to missile damage</li>
                                 <li>Plane thruster's flame size is proportionnal to player's speed upgrades count</li>
                                 <li>Nice BTR fire circle</li>
-                                Experimental (for now, must use -SWAM-PING or -AC-PING to share setting between AC clients) :
+                                Experimental (for now, must use -SWAM-PING or -AA-PING to share setting between AA clients) :
                                 <li>Custom color for plane and thruster (6 presets, available in all game modes but CTF)</li>
                                 <li>Rad pilot avatars (custom avatars available in all game modes but CTF)</li>
                             </ul>
