@@ -4,8 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <title>ΛIRΛIR</title>
-    <link id="ui-styling" rel="stylesheet" type="text/css" href="styles/default/style.css?v=1729805086794" />
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <link id="ui-styling" rel="stylesheet" type="text/css" href="styles/default/style.css?v=1732034813983" />
     <!--meta name="viewport" content="width=device-width,initial-scale=1.0"-->
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, viewport-fit=cover">
     <meta name="mobile-web-app-capable" content="yes">
@@ -24,9 +23,9 @@
     modes for every type of game player. Chill with friends, fight alongside your team for victory or build your own legend !">
     <meta name="DC.Date" content="2023-12-04">
 
-    <meta name="DC.Identifier" content="https://airclash.netlify.app/">
+    <meta name="DC.Identifier" content="https://takenornot.github.io/">
     <meta name="DC.Publisher" content="AIRAIR">
-    <meta name="DC.Source" content="https://airclash.netlify.app">
+    <meta name="DC.Source" content="https://takenornot.github.io">
 
     <meta name="DC.Creator" content="AIRAIR">
 
@@ -35,19 +34,19 @@
 
 
     <!-- Open Graph -->
-    
+
     <meta property="og:rich_attachment" content="true">
 
     <meta property="og:site_name" content="AIRAIR">
     <meta property="og:type" content="website">
     <meta property="og:title" content="AIRAIR">
     <meta property="og:locale" content="en_US">
-    <meta property="og:url" content="https://airclash.netlify.app/">
+    <meta property="og:url" content="https://takenornot.github.io/">
     <meta property="og:description" content="multiplayer jet fighters game">
 
-    
 
-    <meta property="og:image" content="https://airclash.netlify.app/styles/default/og.jpg">
+
+    <meta property="og:image" content="https://takenornot.github.io/styles/default/og.jpg">
     <meta property="og:image:width" content="899">
     <meta property="og:image:height" content="472">
     <meta property="og:image:type" content="image/jpg">
@@ -63,15 +62,15 @@
 
     <meta name="twitter:card" content="summary_large_image">
     <!-- add twitter handle here -->
-    <meta name="twitter:site" content="https://airclash.netlify.app/"> 
-    <meta name="twitter:title" content="AIRAIR"> 
+    <meta name="twitter:site" content="https://takenornot.github.io/">
+    <meta name="twitter:title" content="AIRAIR">
     <meta name="twitter:description" content="multiplayer jet fighters game">
 
-    <meta name="twitter:image" content="https://airclash.netlify.app/styles/default/og.jpg">
+    <meta name="twitter:image" content="https://takenornot.github.io/styles/default/og.jpg">
 
     <meta name="twitter:dnt" content="on">
     <meta name="description" content="multiplayer jet fighters game">
-    
+
 
 
 
@@ -90,22 +89,22 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Teko" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=B612:400,700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Oxanium&display=swap" rel="stylesheet"> 
-    
+    <link href="https://fonts.googleapis.com/css2?family=Oxanium&display=swap" rel="stylesheet">
+
     <link rel="manifest" href="./manifest.json" />
 </head>
 
 <body style="overflow: hidden;">
     <div id="root" style="width: 100%; height: 100%" class="landing-page bg">
-        
+
         <div id="home" onclick="location.hash='#lobby'">
             <div id="minilogoac" style="position: absolute;
             top: -8px;
             height: 50px;
             left: 50px;">
-                <img src="styles/default/logo.png" style="height: 100%;" /> 
+                <img src="styles/default/logo.png" style="height: 100%;" />
             </div>
-        
+
         </div>
         <div id="bg"></div>
         <div id="bg2"></div>
@@ -113,15 +112,15 @@
 
             <progress id="loading_progress" class="animated" max="100" value="10" style='background-color: rgb(36, 55, 36);'></progress>
         </div>
-        
-        
-        
+
+
+
         <img src="styles/default/blue-flag-mini.png" id="blue-flag-mini" style="display: none;" />
         <img src="styles/default/red-flag-mini.png" id="red-flag-mini" style="display: none;" />
-        
+
         <!-- canvas on which rendering takes place -->
         <canvas id="canvas" style="position: absolute; left: 0; top: 0; z-index: 0; width: 0; height: 0; opacity: 0; display: none;"></canvas>
-        
+
         <canvas id="renderCanvas"></canvas>
 
         <!--<div id="cockpit_container">
@@ -129,20 +128,20 @@
             </div>-->
                 <!-- chat box -->
                 <div id="chat-container" class="paint-layer slideOutToLeft">
-                    
+
                     <div id="chat" style="display: none;">
                         <div id="anchor"></div>
                     </div>
-                    
+
                     <div id="chat-input" style="display: none;">
                         <input type="text" id="chat-input-textbox" placeholder="Click here or press &lt;Enter&gt; to chat" onfocus="this.placeholder = 'Type message, press <Enter> to send'"
 onblur="this.placeholder = 'Click here or press &lt;Enter&gt; to chat'; this.value=''"/>
                     </div>
                 </div>
-            
+
             <!--<div id="xcockpit_nose">
             </div>-->
-            
+
                 <div id="spectating" class="paint-layer">
                     <div id="specPrev">◁</div><div id="specNext">◁</div>
                     <div style="display:block">
@@ -153,9 +152,9 @@ onblur="this.placeholder = 'Click here or press &lt;Enter&gt; to chat'; this.val
                         </div>
                     </div>
                     <span id="avatar-bg-spec"></span><span class="avatar"></span><span id="hitBurning-spec"></span><span id="avatar-overlay-spec"></span><div id="spectating-player-name"></div>
-                    
+
                 </div>
-        
+
                 <!-- aircraft selection -->
                 <!-- TODO : pre-rotate images as needed (≠ css transform), also maybe bake in drop shadows -->
                 <div id="aircraftSelection-container" class="paint-layer slideOutToBottom gui-hidden">
@@ -168,7 +167,7 @@ onblur="this.placeholder = 'Click here or press &lt;Enter&gt; to chat'; this.val
                         <div class="selectable-ship" id="select-prowler"><div class="ship" title="SHARKY"></div></div>
                     </div>
                 </div>
-            
+
             <!--
             <div id="xcockpit_right">
             </div>-->
@@ -180,9 +179,9 @@ onblur="this.placeholder = 'Click here or press &lt;Enter&gt; to chat'; this.val
                         <input id="zoom-slider" type="range" min="10" max="45" value="16" step="1">
                     </div>
                 </div>
-            
+
         <!--</div>-->
-        
+
         <div id="serverInfo-container" class="paint-layer slideOutToRight" style="display: none;">
             <a id="btn-serverInfo-close"></a>
             <!-- player list -->
@@ -199,7 +198,7 @@ onblur="this.placeholder = 'Click here or press &lt;Enter&gt; to chat'; this.val
                 <div class="avatar"></div>
                 <div id="menu-title">Player</div>
             </div>
-            
+
             <div id="menu-stats"></div>
             <div class="menu-items-group" id="menu-player-chat-items">
                 <div class="menu-item" id="menu-whisper">Send private message</div>
@@ -222,7 +221,7 @@ onblur="this.placeholder = 'Click here or press &lt;Enter&gt; to chat'; this.val
             </div>
         </div>
 
-        
+
 
         <!-- CTF and server info -->
         <div id="ctf-info" class="paint-layer">
@@ -249,51 +248,51 @@ onblur="this.placeholder = 'Click here or press &lt;Enter&gt; to chat'; this.val
             </div>
         </div>
         <div id="server-message" class="paint-layer"  style="display: none">
-            
+
         </div>
         <a id="btn-reconnect">TRY RECONNECT</a>
-            
+
         <!-- stats -->
         <div id="stats" class="paint-layer slideOutToTop" style="display: none">
             <span id="player-name"></span>
-            
+
             <div id="avatar-bg"></div>
             <div id="avatar"></div>
             <div id="hitBurning"></div>
             <div id="avatar-overlay"></div>
             <div id="avatar-overlay-overlay" class=""></div>
             <div id="avatar-wings"></div>
-            
-            
+
+
             <span id="stats-score">0</span><br />
-            
+
             <div id="stats-kd">
                 <span id="stats-kills">0</span>
                 <span id="kdsep">&nbsp;/&nbsp;</span>
                 <span id="stats-deaths">0</span>
             </div>
-            
-            
-            
-            
+
+
+
+
         </div>
 
         <div id="statsPing-container"><span id="stats-ping"></span></div>
-        
+
         <div id="gui-toggle" class="paint-layer" style="display:none;"><img src="styles/default/focus.png" id="focus" title="Toggle Focus Mode (g)"/></div>
         <!-- upgrade selection -->
         <div id="upgradeSelection" class="paint-layer slideOutToLeft" style="display: none">
-            
-            
-            
+
+
+
             <div id="select-speed" class="upgradeType" title="Speed upgrade (1)"><span id="stats-speed"></span>
-                
+
             </div>
             <div id="select-defense" class="upgradeType" title="Defense upgrade (2)"><span id="stats-defense"></span>
             </div>
             <div id="select-energy" class="upgradeType" title="Energy regeneration upgrade (3)"><span id="stats-energy"></span></div>
             <div id="select-missile" class="upgradeType" title="Missile speed upgrade (4)"><span id="stats-missile"></span></div>
-            
+
             <div id="stats-upgrades" class="inactive">0</div>
             <div id="drop-upgrade" title="Drop 1 upgrade (x)"></div>
         </div>
@@ -302,37 +301,37 @@ onblur="this.placeholder = 'Click here or press &lt;Enter&gt; to chat'; this.val
             <div>Lag: <span id="lag-in-ms"></span> ms</div>
             <div>Skipped frames: <span id="skipped-frames"></span></div>
         </div>
-        
+
         <div id="nameAndGame-container" class="outer">
-            
+
             <div class="middle">
-                
+
                 <!-- game and name selection -->
                 <div id="nameAndGame">
                     <div id="logoac">
-                    <img src="styles/default/logo.png"/> 
+                    <img src="styles/default/logo.png"/>
                     </div>
 
                     <div id="landing-page-content">
                         <div id="nameAndSettings" style="padding: 0 0 1em 0;">
-                            <input id="playerName" spellcheck="false" type="text" placeholder="Enter Your Pilot Name" maxlength="20"> 
+                            <input id="playerName" spellcheck="false" type="text" placeholder="Enter Your Pilot Name" maxlength="20">
                         </div>
                         <a id="btn-settings" class="btn"></a>
                         <a id="btn-about-close" class="btn"></a>
-                        
+
                         <select id="styleSelect" style="display:none;">
                             <option value="no-bitmaps">No bitmaps</option>
                             <option value="styles/default/" selected>Default</option>
                             <option value="custom">Custom</option>
                         </select>
-                                        
+
                         <select id="zoomSelect" style="display:none;">
                             <option value="0.4">0.4</option>
                             <option value="0.6">0.6</option>
                             <option value="0.8" selected="selected">0.8</option>
                             <option value="1">No zoom</option>
                         </select>
-                        <div id="games-container">            
+                        <div id="games-container">
                             <table >
                                 <thead>
                                     <tr style="text-align: left; line-height: 2em; position: sticky;
@@ -346,22 +345,22 @@ onblur="this.placeholder = 'Click here or press &lt;Enter&gt; to chat'; this.val
                                     </tr>
                                 </thead>
                                 <tbody id="games">
-                                
+
                                 </tbody>
                             </table>
                         </div>
                         <div id="nameAndGameBtnsContainer">
                             <!-- TODO : remove width:100% when login will be implemented -->
-                            <div class="start-button btn-left" style="width: 100%;">
-                                <div id="startButton" class="big-btn" type="button">play as guest</div>
+                            <div class="start-button btn-left">
+                                <div id="startButton" class="big-btn">play as guest</div>
                             </div>
                             <!-- TODO : remove display:none when login will be implemented -->
-                            <div id="externalLogin" class="btn-left" style="display:none;">
+                            <div id="externalLogin" class="btn-left">
                                 <span id="loginMessage" style="display: none;">Login to save your progress: </span>
-                                <input type="button" value="Login" id="loginButton" />
+                                <div id="loginButton" class="big-btn clickable">login</div>
                             </div>
                         </div>
-                </div>    
+                </div>
                 <div id="settings-container">
                     <h2 id="heading-settings">Settings</h2>
                     <div id="settings" class="force-show-scrollbars">
@@ -374,8 +373,8 @@ onblur="this.placeholder = 'Click here or press &lt;Enter&gt; to chat'; this.val
                             <input id="saveButton" type="button" value="Save"/>
                         </div>
                     </div>
-                </div>    
-                
+                </div>
+
                 <div id="about-container">
                     <h2 id="heading-about">About</h2>
                     <div id="about" class="force-show-scrollbars">
@@ -391,7 +390,7 @@ float: left; margin: 10px; opacity: .75;">
                         <br/><br/>
                         It has some pretty cool features, including :<br/><br/>
                         <small>
-                            Enhanced spectator mode : 
+                            Enhanced spectator mode :
                             <ul>
                                 <li>Can tilt spectator camera by click-dragging</li>
                                 <li>Can zoom in/out spectator camera with mouse wheel or pinch on trackpads</li>
@@ -405,9 +404,9 @@ float: left; margin: 10px; opacity: .75;">
                                 <li>Missed private messages count is shown in tab title when tab is inactive</li>
                                 <li>Chat smooth scroll option (false by default)</li>
                                 <li>When sending / receiving several DMs from / to the same player, messages are merged (sender/recipient and timestamp is shown only once), making better use of screen space</li>
-                                
+
                             </ul>
-                            Handy hotkeys : 
+                            Handy hotkeys :
                             <ul>
                                 <li><span class="key">z</span> to toggle between two zoom levels</li>
                                 <li><span class="key">y</span> to drop flag (/drop) OR ask bot to pass flag (#drop), press twice to force drop (#dropnow)</li>
@@ -437,7 +436,7 @@ float: left; margin: 10px; opacity: .75;">
                                 <li>Leaderboard shows playing players first, spectating players are sent to bottom of the ranking after about 30 seconds</li>
                                 <li>Handy player drop down menu entry to make another player team leader in CTF ("Make Team Leader" = #leader playerName)</li>
                                 <li>Local notifications when there's a CTF game with more than N humans players (5 by default, must accept notifications and keep a tab opened on lobby page)</li>
-                                <li>Direct connection to a server, so a server can be sent as a simple link or bookmarked (for example <a href="https://airclash.netlify.app/#US-ctf2">https://airclash.netlify.app/#US-ctf2</a>)</li>
+                                <li>Direct connection to a server, so a server can be sent as a simple link or bookmarked (for example <a href="https://takenornot.github.io/#US-ctf2">https://takenornot.github.io/#US-ctf2</a>)</li>
                                 <li>Can be installed as a Progressive Web App on most recent systems / browsers</li>
                             </ul>
                         </small>
@@ -447,11 +446,11 @@ float: left; margin: 10px; opacity: .75;">
                             <ul>
                                 <li>Sounds (will add at some point)</li>
                                 <li>Login (will add at some point)</li>
-                                
+
                                 <li>WebGPU support (not fully supported currently)</li>
                                 <li>Client-side lag mitigation (exists but probably could/should be improved) </li>
                                 <li>Touch devices compatibility (okayish iOS support (iOS 16), basic Android support with some bugs) </li>
-                                
+
                                 <li>In-game chat bubbles (might add at some point)</li>
                             </ul>
                         </small>
@@ -459,7 +458,7 @@ float: left; margin: 10px; opacity: .75;">
                         <br/><br/>
                         Compatibility and performances notes<br/><br/>
                         <small>
-                            
+
                             <ul>
                                 <li>Mac Intel / M1 : MacOS Yosemite (10.10) + Firefox 78, MacOS Catalina (10.15) + Safari 15; Performance issues seen on Mac Intel + Big Sur (11.6) + Chrome 111, seems fine on M1 + Chrome 111</li>
                                 <li>iPhone/iPad : iOS/iPadOS 16 + Safari 16</li>
@@ -475,19 +474,19 @@ float: left; margin: 10px; opacity: .75;">
                         Credits and thanks<br/><br/>
                         <small>
                         Wight, Spatie for the server and client codebases<br/>
-                        Testing and feedback : <br/> 
+                        Testing and feedback : <br/>
                         Wight, SECVTOR, Sleep_Maker21, Flying Yeti, Zoinks, Bug, Alea, Star, Elven, Slick
                         </small>
                     </div>
-                    
+
                 </div>
 
                 </div>
-                
+
             </div>
         </div>
         <!-- overlay for making the login stuff modal-->
-        <div id="overlay" style="display: none;"></div>
+        <div id="overlay"></div>
         <!-- login to external services-->
         <div id="loginselector" style="display:none;">
             <div class="desc">
@@ -531,17 +530,17 @@ float: left; margin: 10px; opacity: .75;">
                 See our <a href='/privacy' target='_blank' rel='noopener'>Privacy Policy</a> for more.
             </div>
         </div>
-        
+
         <div id="footer">
             &nbsp;&nbsp;✪&nbsp;&nbsp;
             <div id="btn-about">About</div>
         </div>
         <div style="width: 100px; display: none;">
-            
+
             <button id="inspectorToggle">BJS Inspector</button>
-        </div>    
+        </div>
         <script src="browser-pack.js"></script>
-        
+
     </div>
 </body>
 <script type="text/javascript">
@@ -586,7 +585,7 @@ float: left; margin: 10px; opacity: .75;">
     this.animationInterval = 50;    // Theoretical "miliseconds per frame" measurement. 20 = fast + smooth, but high CPU use. 50 = more conservative, but slower
     this.useGPU = true;             // Enable transform-based hardware acceleration, reduce CPU load.
     this.className = null;          // CSS class name for further customization on snow elements
-    
+
     this.flakeBottom = null;        // Integer for Y axis snow limit, 0 or null for "full-screen" snow effect
     this.followMouse = false;        // Snow movement can respond to the user's mouse
     this.snowColor = '#fff';        // Don't eat (or use?) yellow snow.
@@ -691,7 +690,7 @@ float: left; margin: 10px; opacity: .75;">
     };
 
     localFeatures.transform.prop = (
-        localFeatures.transform.w3 || 
+        localFeatures.transform.w3 ||
         localFeatures.transform.moz ||
         localFeatures.transform.webkit ||
         localFeatures.transform.ie ||
@@ -835,7 +834,7 @@ float: left; margin: 10px; opacity: .75;">
     };
 
     this.resizeHandler = function() {
-        
+
     if (window.innerWidth || window.innerHeight) {
         screenX = window.innerWidth - 16 - storm.flakeRightOffset;
         screenY = (storm.flakeBottom || window.innerHeight);
@@ -1244,9 +1243,9 @@ float: left; margin: 10px; opacity: .75;">
 
     }(window, document));
 
-    
 
-   
+
+
 
 </script>
 </html>
