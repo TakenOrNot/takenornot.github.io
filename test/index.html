@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>ΛIRΛIR</title>
+    <link id="ui-styling" rel="stylesheet" type="text/css" href="styles/default/style.css?v=1746407250919" />
+    <!--meta name="viewport" content="width=device-width,initial-scale=1.0"-->
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, viewport-fit=cover">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <!-- possible content values: default, black or black-translucent -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="schema.DC" href="https://purl.org/dc/elements/1.1/">
+    <link rel="schema.DCTERMS" href="https://purl.org/dc/terms/">
+    <meta name="DC.Format" content="text/html">
+    <meta name="DC.Type" content="Text">
+    <meta name="DC.Language" content="en">
+    <meta name="DC.Title" lang="en" content="AIRAIR">
+    <meta name="DC.Description.Abstract" lang="en" content="AirAir is a free-to-play jet fighters plane game with numerous game 
+    modes for every type of game player. Chill with friends, fight alongside your team for victory or build your own legend !">
+    <meta name="DC.Date" content="2023-12-04">
+
+    <meta name="DC.Identifier" content="https://takenornot.github.io/">
+    <meta name="DC.Publisher" content="AIRAIR">
+    <meta name="DC.Source" content="https://takenornot.github.io">
+
+    <meta name="DC.Creator" content="AIRAIR">
+
+
+
+
+
+    <!-- Open Graph -->
+
+    <meta property="og:rich_attachment" content="true">
+
+    <meta property="og:site_name" content="AIRAIR">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="AIRAIR">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:url" content="https://takenornot.github.io/">
+    <meta property="og:description" content="multiplayer jet fighters game">
+
+
+
+    <meta property="og:image" content="https://takenornot.github.io/styles/default/og.jpg">
+    <meta property="og:image:width" content="899">
+    <meta property="og:image:height" content="472">
+    <meta property="og:image:type" content="image/jpg">
+
+
+
+
+
+
+
+
+    <!-- Twitter Card -->
+
+    <meta name="twitter:card" content="summary_large_image">
+    <!-- add twitter handle here -->
+    <meta name="twitter:site" content="https://takenornot.github.io/">
+    <meta name="twitter:title" content="AIRAIR">
+    <meta name="twitter:description" content="multiplayer jet fighters game">
+
+    <meta name="twitter:image" content="https://takenornot.github.io/styles/default/og.jpg">
+
+    <meta name="twitter:dnt" content="on">
+    <meta name="description" content="multiplayer jet fighters game">
+
+
+
+
+    <style>
+        html,
+        body {
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: 'B612', verdana,arial,helvetica,sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Teko" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=B612:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oxanium&display=swap" rel="stylesheet">
+
+    <link rel="manifest" href="./manifest.json" />
+</head>
+
+<body style="overflow: hidden;">
+    <div id="root" style="width: 100%; height: 100%" class="landing-page bg">
+
+        <div id="home" onclick="location.hash='#lobby'">
+            <div id="minilogoac" style="position: absolute;
+            top: -8px;
+            height: 50px;
+            left: 50px;">
+                <img src="styles/default/logo.png" style="height: 100%;" />
+            </div>
+
+        </div>
+        <div id="bg"></div>
+        <div id="bg2"></div>
+        <div id="loading" class="loading">
+
+            <progress id="loading_progress" class="animated" max="100" value="10" style='background-color: rgb(36, 55, 36);'></progress>
+        </div>
+
+
+
+        <img src="styles/default/blue-flag-mini.png" id="blue-flag-mini" style="display: none;" />
+        <img src="styles/default/red-flag-mini.png" id="red-flag-mini" style="display: none;" />
+
+        <!-- canvas on which rendering takes place -->
+        <canvas id="canvas" style="position: absolute; left: 0; top: 0; z-index: 0; width: 0; height: 0; opacity: 0; display: none;"></canvas>
+
+        <canvas id="renderCanvas"></canvas>
+
+        <!--<div id="cockpit_container">
+            <div id="xcockpit_left">
+            </div>-->
+                <!-- chat box -->
+                <div id="chat-container" class="paint-layer slideOutToLeft">
+
+                    <div id="chat" style="display: none;">
+                        <div id="anchor"></div>
+                    </div>
+
+                    <div id="chat-input" style="display: none;">
+                        <input type="text" id="chat-input-textbox" placeholder="Click here or press &lt;Enter&gt; to chat" onfocus="this.placeholder = 'Type message, press <Enter> to send'"
+onblur="this.placeholder = 'Click here or press &lt;Enter&gt; to chat'; this.value=''"/>
+                    </div>
+                </div>
+
+            <!--<div id="xcockpit_nose">
+            </div>-->
+
+                <div id="spectating" class="paint-layer">
+                    <div id="specPrev">◁</div><div id="specNext">◁</div>
+                    <div style="display:block">
+                        Watching
+                        <div id="camsetup" class="btns-group">
+                            <!--<div class="btn" id="btn-camRotate"><div id="camRotate-toggle" class="disabled" title="Toggle Camera Auto Rotation"></div></div>-->
+                            <div class="btn" id="btn-camFlagTracking"><div id="camFlagTracking-toggle" title="Camera Mode">⚙️</div></div>
+                        </div>
+                    </div>
+                    <span id="avatar-bg-spec"></span><span class="avatar"></span><span id="hitBurning-spec"></span><span id="avatar-overlay-spec"></span><div id="spectating-player-name"></div>
+
+                </div>
+
+                <!-- aircraft selection -->
+                <!-- TODO : pre-rotate images as needed (≠ css transform), also maybe bake in drop shadows -->
+                <div id="aircraftSelection-container" class="paint-layer slideOutToBottom gui-hidden">
+                    <div id="respawn-instruction">Pick a ship to get back in game</div>
+                    <div id="aircraftSelection" style="display: none;">
+                        <div class="selectable-ship" id="select-raptor"><div class="ship" title="EAGLE"></div></div>
+                        <div class="selectable-ship" id="select-spirit"><div class="ship" title="CHONKY"></div></div>
+                        <div class="selectable-ship" id="select-mohawk"><div class="ship" title="CHOPPA"></div></div>
+                        <div class="selectable-ship" id="select-tornado"><div class="ship" title="TAIGA"></div></div>
+                        <div class="selectable-ship" id="select-prowler"><div class="ship" title="SHARKY"></div></div>
+                    </div>
+                </div>
+
+            <!--
+            <div id="xcockpit_right">
+            </div>-->
+                <!-- minimap -->
+                <div id="minimap" style="display: none" class="paint-layer slideInFromRight">
+                    <img src="styles/default/minimap.png" style="position: absolute; opacity: 0.3; width: 240px; height: 120px; width: 100%; height: 100%;" />
+                    <canvas id="minimap-canvas" style="position: absolute; padding: 4px; width: 240px; height: 120px; width: 100%; height: 100%;" width="240" height="120"></canvas>
+                    <div class="slider-wrapper">
+                        <input id="zoom-slider" type="range" min="10" max="45" value="16" step="1">
+                    </div>
+                </div>
+
+        <!--</div>-->
+
+        <div id="serverInfo-container" class="paint-layer slideOutToRight" style="display: none;">
+            <a id="btn-serverInfo-close"></a>
+            <!-- player list -->
+            <div id="server-info"></div>
+            <div id="server-info-players-count"></div><div id="btn-leaderboard"></div>
+            <div id="player-list-container">
+            <table id="player-list">
+            </table>
+            </div>
+        </div>
+        <!-- player context menu -->
+        <div id="player-context-menu" class="hide">
+            <div id="menu-header">
+                <div class="avatar"></div>
+                <div id="menu-title">Player</div>
+            </div>
+
+            <div id="menu-stats"></div>
+            <div class="menu-items-group" id="menu-player-chat-items">
+                <div class="menu-item" id="menu-whisper">Send private message</div>
+                <div class="menu-item" id="menu-ignore">Ignore</div>
+                <div class="menu-item" id="menu-unignore">Unignore</div>
+                <div class="menu-item" id="menu-votemute">Vote mute</div>
+            </div>
+            <div class="menu-items-group" id="menu-player-misc">
+                <div class="menu-item" id="menu-locate">Locate on minimap</div>
+                <div class="menu-item" id="menu-flag">Copy flag</div>
+                <div class="menu-item" id="menu-makeleader">Make Team Leader</div>
+                <div class="menu-item" id="menu-spectate">Spectate</div>
+            </div>
+            <div class="menu-items-group" id="menu-camera-mode">
+                <div class="menu-item" id="menu-trackPlayer">Track Player</div>
+                <div class="menu-item" id="menu-trackBothFlags">Track Both Flags</div>
+                <div class="menu-item" id="menu-trackBlueFlag">Track Blue Flag</div>
+                <div class="menu-item" id="menu-trackRedFlag">Track Red Flag</div>
+
+            </div>
+        </div>
+
+
+
+        <!-- CTF and server info -->
+        <div id="ctf-info" class="paint-layer">
+            <div id="ctf-score-container">
+                <span class="score-left">
+                    <span class="team-blue"></span>
+                    <span class="team-blue" id="blue-score">0</span>
+                </span>
+                <div id="game-time"></div>
+                <span class="score-right">
+                    <span class="team-red"></span>
+                    <span class="team-red" id="red-score">0</span>
+                </span>
+            </div>
+            <br />
+            <div class="team-blue-info">
+                <span class="team-blue" id="blue-flag-location">home</span><span id="blue-flag-carrier" class="player-name team-red"></span>
+                <span class="team-blue blue-flag"> </span>
+            </div>
+            &nbsp;&nbsp;&nbsp;
+            <div class="team-red-info">
+                <span class="team-red red-flag"> </span>
+                <span class="team-red" id="red-flag-location">home</span><span id="red-flag-carrier" class="player-name team-blue"></span>
+            </div>
+        </div>
+        <div id="server-message" class="paint-layer"  style="display: none">
+
+        </div>
+        <a id="btn-reconnect">TRY RECONNECT</a>
+
+        <!-- stats -->
+        <div id="stats" class="paint-layer slideOutToTop" style="display: none">
+            <span id="player-name"></span>
+
+            <div id="avatar-bg"></div>
+            <div id="avatar"></div>
+            <div id="hitBurning"></div>
+            <div id="avatar-overlay"></div>
+            <div id="avatar-overlay-overlay" class=""></div>
+            <div id="avatar-wings"></div>
+
+
+            <span id="stats-score">0</span><br />
+
+            <div id="stats-kd">
+                <span id="stats-kills">0</span>
+                <span id="kdsep">&nbsp;/&nbsp;</span>
+                <span id="stats-deaths">0</span>
+            </div>
+
+
+
+
+        </div>
+
+        <div id="statsPing-container"><span id="stats-ping"></span></div>
+
+        <div id="gui-toggle" class="paint-layer" style="display:none;"><img src="styles/default/focus.png" id="focus" title="Toggle Focus Mode (g)"/></div>
+        <!-- upgrade selection -->
+        <div id="upgradeSelection" class="paint-layer slideOutToLeft" style="display: none">
+
+
+
+            <div id="select-speed" class="upgradeType" title="Speed upgrade (1)"><span id="stats-speed"></span>
+
+            </div>
+            <div id="select-defense" class="upgradeType" title="Defense upgrade (2)"><span id="stats-defense"></span>
+            </div>
+            <div id="select-energy" class="upgradeType" title="Energy regeneration upgrade (3)"><span id="stats-energy"></span></div>
+            <div id="select-missile" class="upgradeType" title="Missile speed upgrade (4)"><span id="stats-missile"></span></div>
+
+            <div id="stats-upgrades" class="inactive">0</div>
+            <div id="drop-upgrade" title="Drop 1 upgrade (x)"></div>
+        </div>
+        <!-- debug information -->
+        <div id="debugPanel" style="display: none">
+            <div>Lag: <span id="lag-in-ms"></span> ms</div>
+            <div>Skipped frames: <span id="skipped-frames"></span></div>
+        </div>
+
+        <div id="nameAndGame-container" class="outer">
+
+            <div class="middle">
+
+                <!-- game and name selection -->
+                <div id="nameAndGame">
+                    <div id="logoac">
+                    <img src="styles/default/logo.png"/>
+                    </div>
+
+                    <div id="landing-page-content">
+                        <div id="nameAndSettings" style="padding: 0 0 1em 0;">
+                            <input id="playerName" spellcheck="false" type="text" placeholder="Enter Your Pilot Name" maxlength="20">
+                        </div>
+                        <a id="btn-settings" class="btn"></a>
+                        <a id="btn-about-close" class="btn"></a>
+
+                        <select id="styleSelect" style="display:none;">
+                            <option value="no-bitmaps">No bitmaps</option>
+                            <option value="styles/default/" selected>Default</option>
+                            <option value="custom">Custom</option>
+                        </select>
+
+                        <select id="zoomSelect" style="display:none;">
+                            <option value="0.4">0.4</option>
+                            <option value="0.6">0.6</option>
+                            <option value="0.8" selected="selected">0.8</option>
+                            <option value="1">No zoom</option>
+                        </select>
+                        <div id="games-container">
+                            <table >
+                                <thead>
+                                    <tr style="text-align: left; line-height: 2em; position: sticky;
+    top: 0;
+    box-shadow: 0 2px 2px -1px rgba(255, 181, 176, 0.4);
+    background: #260500">
+                                        <th style="padding: 0 1em;">Region</th>
+                                        <th style="padding: 0 1em;">Game</th>
+                                        <th style="padding: 0 1em; text-align: center;">Players</th>
+                                        <th style="padding: 0 2em 0 1em; text-align: center;">Bots</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="games">
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="nameAndGameBtnsContainer">
+                            <!-- TODO : remove width:100% when login will be implemented -->
+                            <div class="start-button btn-left">
+                                <div id="startButton" class="big-btn">play as guest</div>
+                            </div>
+                            <!-- TODO : remove display:none when login will be implemented -->
+                            <div id="externalLogin" class="btn-left">
+                                <span id="loginMessage" style="display: none;">Login to save your progress: </span>
+                                <div id="loginButton" class="big-btn clickable">login</div>
+                            </div>
+                        </div>
+                </div>
+                <div id="settings-container">
+                    <h2 id="heading-settings">Settings</h2>
+                    <div id="settings" class="force-show-scrollbars">
+                    </div>
+                    <div id="settingsBtnsContainer">
+                        <div class="cancel-settings btn-left">
+                            <input id="cancelButton" type="button" value="Cancel"/>
+                        </div>
+                        <div class="save-settings btn-left">
+                            <input id="saveButton" type="button" value="Save"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="about-container">
+                    <h2 id="heading-about">About</h2>
+                    <div id="about" class="force-show-scrollbars">
+                        <div class="image-holder" style="height: 160px;
+background: url(./styles/default/planeaxis.png);
+width: 235px;
+float: left; margin: 10px; opacity: .75;">
+                            </div>
+                        This client is based on Spatie's <a target="_blank" href="https://github.com/spatiebot/ab-client">ab-client</a>, and is meant to connect to Wight's <a target="_blank" href="https://github.com/wight-airmash/ab-server/">ab-server</a>.
+                        <br/><br/>
+                        <small>It will reply to -SWAM-PING command, but only if it has been written in capital letters.</small>
+                        <hr class="clearfix"/>
+                        <br/><br/>
+                        It has some pretty cool features, including :<br/><br/>
+                        <small>
+                            Enhanced spectator mode :
+                            <ul>
+                                <li>Can tilt spectator camera by click-dragging</li>
+                                <li>Can zoom in/out spectator camera with mouse wheel or pinch on trackpads</li>
+                                <li>Auto spectate CTF flag carrier in spectate mode (click ⚙️ button bottom center to toggle the camera mode menu, then select mode, alternatively it's possible to click carrier name top center to track only one flag)</li>
+                            </ul>
+                            Enhanced Chat :
+                            <ul>
+                                <li>Player movements/fire/special keys are locked when starting chat (not a bug!), this allows us to use the arrow keys to adjust the text cursor position in chat input if needed, and plane can keep going while typing (after sending chat message, just press locked keys again to unlock)</li>
+                                <li>Chat messages are timestamped</li>
+                                <li>Server (Ground Control) and bots are ignored from the reply-to list</li>
+                                <li>Missed private messages count is shown in tab title when tab is inactive</li>
+                                <li>Chat smooth scroll option (false by default)</li>
+                                <li>When sending / receiving several DMs from / to the same player, messages are merged (sender/recipient and timestamp is shown only once), making better use of screen space</li>
+
+                            </ul>
+                            Handy hotkeys :
+                            <ul>
+                                <li><span class="key">z</span> to toggle between two zoom levels</li>
+                                <li><span class="key">y</span> to drop flag (/drop) OR ask bot to pass flag (#drop), press twice to force drop (#dropnow)</li>
+                                <li><span class="key">c</span> to start team chat with "/t #" when leader, so you only have to type the bot command</li>
+                                <li><span class="key">g</span> to toggle Graphical User Interface (focus mode)</li>
+                            </ul>
+                            Enhanced controls :
+                            <ul>
+                                <li>When keeping <i>Special</i> key pressed (default <span class="key">Shift</span>), predator ship will boost again automatically when energy reaches 100%, without needing to release and press key again</li>
+                                <li>Pressing <i>Special</i> on touch devices will make pred ship go forward by default if forward / backward aren't active at this time</li>
+                            </ul>
+                            Graphics :
+                            <ul>
+                                <li>Day/Night cycle</li>
+                                <li>Cool slow-motion death fx</li>
+                                <li>Missile size is proportionnal to missile damage</li>
+                                <li>Plane thruster's flame size is proportionnal to player's speed upgrades count</li>
+                                <li>Nice BTR fire circle</li>
+                                Experimental (for now, must use -SWAM-PING or -AA-PING to share setting between AA clients) :
+                                <li>Custom color for plane and thruster (6 presets, available in all game modes but CTF)</li>
+                                <li>Rad pilot avatars (custom avatars available in all game modes but CTF)</li>
+                            </ul>
+                            Misc :
+                            <ul>
+                                <li>Prow radar shows stealthed prow player name</li>
+                                <li>Option to force players names to be ASCII characters (true by default) clientside (in case server allows non-ASCII player names), as non-ASCII characters mess with game readability, usability and can cause frame skips on weak/old machines</li>
+                                <li>Leaderboard shows playing players first, spectating players are sent to bottom of the ranking after about 30 seconds</li>
+                                <li>Handy player drop down menu entry to make another player team leader in CTF ("Make Team Leader" = #leader playerName)</li>
+                                <li>Local notifications when there's a CTF game with more than N humans players (5 by default, must accept notifications and keep a tab opened on lobby page)</li>
+                                <li>Direct connection to a server, so a server can be sent as a simple link or bookmarked (for example <a href="https://takenornot.github.io/#US-ctf2">https://takenornot.github.io/#US-ctf2</a>)</li>
+                                <li>Can be installed as a Progressive Web App on most recent systems / browsers</li>
+                            </ul>
+                        </small>
+                        <br/><br/>
+                        Some features are still missing :/<br/><br/>
+                        <small>
+                            <ul>
+                                <li>Sounds (will add at some point)</li>
+                                <li>Login (will add at some point)</li>
+
+                                <li>WebGPU support (not fully supported currently)</li>
+                                <li>Client-side lag mitigation (exists but probably could/should be improved) </li>
+                                <li>Touch devices compatibility (okayish iOS support (iOS 16), basic Android support with some bugs) </li>
+
+                                <li>In-game chat bubbles (might add at some point)</li>
+                            </ul>
+                        </small>
+
+                        <br/><br/>
+                        Compatibility and performances notes<br/><br/>
+                        <small>
+
+                            <ul>
+                                <li>Mac Intel / M1 : MacOS Yosemite (10.10) + Firefox 78, MacOS Catalina (10.15) + Safari 15; Performance issues seen on Mac Intel + Big Sur (11.6) + Chrome 111, seems fine on M1 + Chrome 111</li>
+                                <li>iPhone/iPad : iOS/iPadOS 16 + Safari 16</li>
+                                <li>Android : Android 12 + Chrome 110</li>
+
+                                <li>Windows PC : need some testing, probably runs best on Chrome and Edge (and other Chromium-based browsers), maybe Firefox</li>
+                                <li>Linux PC : need more testing, some issues to sort out</li>
+                                <li>Chrome OS : need some testing</li>
+                            </ul>
+                        </small>
+
+                        <br/><br/>
+                        Credits and thanks<br/><br/>
+                        <small>
+                        Wight, Spatie for the server and client codebases<br/>
+                        Testing and feedback : <br/>
+                        Wight, SECVTOR, Sleep_Maker21, Flying Yeti, Zoinks, Bug, Alea, Star, Elven, Slick, De*
+                        </small>
+                    </div>
+
+                </div>
+
+                </div>
+
+            </div>
+        </div>
+        <!-- overlay for making the login stuff modal-->
+        <div id="overlay"></div>
+        <!-- login to external services-->
+        <div id="loginselector" style="display:none;">
+            <div class="desc">
+                Use any of the following services to sign in<br>
+                to save your account progress and<br>
+                achievements.
+            </div>
+            <div class="signinwith">
+                Sign in with
+            </div>
+            <div class="buttons">
+                <span class="loginbutton button microsoft" id="login-microsoft" data-provider="1">
+                    Microsoft
+                    <div class="icon"></div>
+                    <div class="spacer"></div>
+                </span>
+                <span class="loginbutton button google" id="login-google" data-provider="2">
+                    Google
+                    <div class="icon"></div>
+                    <div class="spacer"></div>
+                </span>
+                <span class="loginbutton button twitter" id="login-twitter" data-provider="3">
+                    Twitter
+                    <div class="icon"></div>
+                    <div class="spacer"></div>
+                </span>
+                <span class="loginbutton button reddit" id="login-reddit" data-provider="4">
+                    Reddit
+                    <div class="icon"></div>
+                    <div class="spacer"></div>
+                </span>
+                <span class="loginbutton button twitch" id="login-twitch" data-provider="5">
+                    Twitch
+                    <div class="icon"></div>
+                    <div class="spacer"></div>
+                </span>
+            </div>
+            <div class="disclaimer">
+                We only require the absolute minimum<br>
+                permission set that each platform provides.<br>
+                See our <a href='/privacy' target='_blank' rel='noopener'>Privacy Policy</a> for more.
+            </div>
+        </div>
+
+        <div id="footer">
+            &nbsp;&nbsp;✪&nbsp;&nbsp;
+            <div id="btn-about">About</div>
+        </div>
+        <div style="width: 100px; display: none;">
+
+            <button id="inspectorToggle">BJS Inspector</button>
+        </div>
+        <script src="browser-pack.js"></script>
+
+    </div>
+</body>
+<script type="text/javascript">
+    if (navigator.wakeLock){
+        const requestWakeLock = async () => {
+            try {
+                const wakeLock = await navigator.wakeLock.request('screen');
+            } catch (err) {
+                    // The wake lock request fails - usually system-related, such as low battery.
+                console.log(`${err.name}, ${err.message}`);
+            }
+        }
+        requestWakeLock();
+    }
+
+
+    /** @license
+     * DHTML Snowstorm! JavaScript-based snow for web pages
+     * Making it snow on the internets since 2003. You're welcome.
+     * -----------------------------------------------------------
+     * Version 1.44.20131208 (Previous rev: 1.44.20131125)
+     * Copyright (c) 2007, Scott Schiller. All rights reserved.
+     * Code provided under the BSD License
+     * http://schillmania.com/projects/snowstorm/license.txt
+     */
+
+    /*jslint nomen: true, plusplus: true, sloppy: true, vars: true, white: true */
+    /*global window, document, navigator, clearInterval, setInterval */
+
+    var snowStorm = (function(window, document) {
+
+        if (!document.getElementById("avatar-overlay-overlay").classList.contains('easter_santa')){
+            return
+        }
+
+    // --- common properties ---
+
+    this.autoStart = true;          // Whether the snow should start automatically or not.
+    this.excludeMobile = true;      // Snow is likely to be bad news for mobile phones' CPUs (and batteries.) Enable at your own risk.
+    this.flakesMax = 128;           // Limit total amount of snow made (falling + sticking)
+    this.flakesMaxActive = 64;      // Limit amount of snow falling at once (less = lower CPU use)
+    this.animationInterval = 50;    // Theoretical "miliseconds per frame" measurement. 20 = fast + smooth, but high CPU use. 50 = more conservative, but slower
+    this.useGPU = true;             // Enable transform-based hardware acceleration, reduce CPU load.
+    this.className = null;          // CSS class name for further customization on snow elements
+
+    this.flakeBottom = null;        // Integer for Y axis snow limit, 0 or null for "full-screen" snow effect
+    this.followMouse = false;        // Snow movement can respond to the user's mouse
+    this.snowColor = '#fff';        // Don't eat (or use?) yellow snow.
+    this.snowCharacter = '&bull;';  // &bull; = bullet, &middot; is square on some systems etc.
+    this.snowStick = true;          // Whether or not snow should "stick" at the bottom. When off, will never collect.
+    this.targetElement = null;      // element which snow will be appended to (null = document.body) - can be an element ID eg. 'myDiv', or a DOM node reference
+    this.useMeltEffect = true;      // When recycling fallen snow (or rarely, when falling), have it "melt" and fade out if browser supports it
+    this.useTwinkleEffect = false;  // Allow snow to randomly "flicker" in and out of view while falling
+    this.usePositionFixed = false;  // true = snow does not shift vertically when scrolling. May increase CPU load, disabled by default - if enabled, used only where supported
+    this.usePixelPosition = true;  // Whether to use pixel values for snow top/left vs. percentages. Auto-enabled if body is position:relative or targetElement is specified.
+
+    // --- less-used bits ---
+
+    this.freezeOnBlur = true;       // Only snow when the window is in focus (foreground.) Saves CPU.
+    this.flakeLeftOffset = 0;       // Left margin/gutter space on edge of container (eg. browser window.) Bump up these values if seeing horizontal scrollbars.
+    this.flakeRightOffset = 0;      // Right margin/gutter space on edge of container
+    this.flakeWidth = 8;            // Max pixel width reserved for snow element
+    this.flakeHeight = 8;           // Max pixel height reserved for snow element
+    this.vMaxX = 2;                 // Maximum X velocity range for snow
+    this.vMaxY = 2;                 // Maximum Y velocity range for snow
+    this.zIndex = 0;                // CSS stacking order applied to each snowflake
+
+    // --- "No user-serviceable parts inside" past this point, yadda yadda ---
+
+    var storm = this,
+    features,
+    // UA sniffing and backCompat rendering mode checks for fixed position, etc.
+    isIE = navigator.userAgent.match(/msie/i),
+    isIE6 = navigator.userAgent.match(/msie 6/i),
+    isMobile = window.matchMedia("(pointer: coarse)").matches,
+    isBackCompatIE = (isIE && document.compatMode === 'BackCompat'),
+    noFixed = (isBackCompatIE || isIE6),
+    screenX = null, screenX2 = null, screenY = null, scrollY = null, docHeight = null, vRndX = null, vRndY = null,
+    windOffset = 1,
+    windMultiplier = 2,
+    flakeTypes = 6,
+    fixedForEverything = false,
+    targetElementIsRelative = false,
+    opacitySupported = (function(){
+    try {
+        document.createElement('div').style.opacity = '0.5';
+    } catch(e) {
+        return false;
+    }
+    return true;
+    }()),
+    didInit = false,
+    docFrag = document.createDocumentFragment();
+
+    features = (function() {
+
+    var getAnimationFrame;
+
+    /**
+     * hat tip: paul irish
+     * http://paulirish.com/2011/requestanimationframe-for-smart-animating/
+     * https://gist.github.com/838785
+     */
+
+    function timeoutShim(callback) {
+        window.setTimeout(callback, 1000/(storm.animationInterval || 20));
+    }
+
+    var _animationFrame = (window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        timeoutShim);
+
+    // apply to window, avoid "illegal invocation" errors in Chrome
+    getAnimationFrame = _animationFrame ? function() {
+        return _animationFrame.apply(window, arguments);
+    } : null;
+
+    var testDiv;
+
+    testDiv = document.createElement('div');
+
+    function has(prop) {
+
+        // test for feature support
+        var result = testDiv.style[prop];
+        return (result !== undefined ? prop : null);
+
+    }
+
+    // note local scope.
+    var localFeatures = {
+
+        transform: {
+        ie:  has('-ms-transform'),
+        moz: has('MozTransform'),
+        opera: has('OTransform'),
+        webkit: has('webkitTransform'),
+        w3: has('transform'),
+        prop: null // the normalized property value
+        },
+
+        getAnimationFrame: getAnimationFrame
+
+    };
+
+    localFeatures.transform.prop = (
+        localFeatures.transform.w3 ||
+        localFeatures.transform.moz ||
+        localFeatures.transform.webkit ||
+        localFeatures.transform.ie ||
+        localFeatures.transform.opera
+    );
+
+    testDiv = null;
+
+    return localFeatures;
+
+    }());
+
+    this.timer = null;
+    this.flakes = [];
+    this.disabled = false;
+    this.active = false;
+    this.meltFrameCount = 20;
+    this.meltFrames = [];
+
+    this.setXY = function(o, x, y) {
+
+    if (!o) {
+        return false;
+    }
+
+    if (storm.usePixelPosition || targetElementIsRelative) {
+
+        o.style.left = (x - storm.flakeWidth) + 'px';
+        o.style.top = (y - storm.flakeHeight) + 'px';
+
+    } else if (noFixed) {
+
+        o.style.right = (100-(x/screenX*100)) + '%';
+        // avoid creating vertical scrollbars
+        o.style.top = (Math.min(y, docHeight-storm.flakeHeight)) + 'px';
+
+    } else {
+
+        if (!storm.flakeBottom) {
+
+        // if not using a fixed bottom coordinate...
+        o.style.right = (100-(x/screenX*100)) + '%';
+        o.style.bottom = (100-(y/screenY*100)) + '%';
+
+        } else {
+
+        // absolute top.
+        o.style.right = (100-(x/screenX*100)) + '%';
+        o.style.top = (Math.min(y, docHeight-storm.flakeHeight)) + 'px';
+
+        }
+
+    }
+
+    };
+
+    this.events = (function() {
+
+    var old = (!window.addEventListener && window.attachEvent), slice = Array.prototype.slice,
+    evt = {
+        add: (old?'attachEvent':'addEventListener'),
+        remove: (old?'detachEvent':'removeEventListener')
+    };
+
+    function getArgs(oArgs) {
+        var args = slice.call(oArgs), len = args.length;
+        if (old) {
+        args[1] = 'on' + args[1]; // prefix
+        if (len > 3) {
+            args.pop(); // no capture
+        }
+        } else if (len === 3) {
+        args.push(false);
+        }
+        return args;
+    }
+
+    function apply(args, sType) {
+        var element = args.shift(),
+            method = [evt[sType]];
+        if (old) {
+        element[method](args[0], args[1]);
+        } else {
+        element[method].apply(element, args);
+        }
+    }
+
+    function addEvent() {
+        apply(getArgs(arguments), 'add');
+    }
+
+    function removeEvent() {
+        apply(getArgs(arguments), 'remove');
+    }
+
+    return {
+        add: addEvent,
+        remove: removeEvent
+    };
+
+    }());
+
+    function rnd(n,min) {
+    if (isNaN(min)) {
+        min = 0;
+    }
+    return (Math.random()*n)+min;
+    }
+
+    function plusMinus(n) {
+    return (parseInt(rnd(2),10)===1?n*-1:n);
+    }
+
+    this.randomizeWind = function() {
+    var i;
+    vRndX = plusMinus(rnd(storm.vMaxX,0.2));
+    vRndY = rnd(storm.vMaxY,0.2);
+    if (this.flakes) {
+        for (i=0; i<this.flakes.length; i++) {
+        if (this.flakes[i].active) {
+            this.flakes[i].setVelocities();
+        }
+        }
+    }
+    };
+
+    this.scrollHandler = function() {
+    var i;
+    // "attach" snowflakes to bottom of window if no absolute bottom value was given
+    scrollY = (storm.flakeBottom ? 0 : parseInt(window.scrollY || document.documentElement.scrollTop || (noFixed ? document.body.scrollTop : 0), 10));
+    if (isNaN(scrollY)) {
+        scrollY = 0; // Netscape 6 scroll fix
+    }
+    if (!fixedForEverything && !storm.flakeBottom && storm.flakes) {
+        for (i=0; i<storm.flakes.length; i++) {
+        if (storm.flakes[i].active === 0) {
+            storm.flakes[i].stick();
+        }
+        }
+    }
+    };
+
+    this.resizeHandler = function() {
+
+    if (window.innerWidth || window.innerHeight) {
+        screenX = window.innerWidth - 16 - storm.flakeRightOffset;
+        screenY = (storm.flakeBottom || window.innerHeight);
+    } else {
+        screenX = (document.documentElement.clientWidth || document.body.clientWidth || document.body.scrollWidth) - (!isIE ? 8 : 0) - storm.flakeRightOffset;
+        screenY = storm.flakeBottom || document.documentElement.clientHeight || document.body.clientHeight || document.body.scrollHeight;
+    }
+    docHeight = document.body.offsetHeight;
+    screenX2 = parseInt(screenX/2,10);
+
+    console.log(screenX2)
+    };
+
+    this.resizeHandlerAlt = function() {
+    screenX = storm.targetElement.offsetWidth - storm.flakeRightOffset;
+    screenY = storm.flakeBottom || storm.targetElement.offsetHeight;
+    screenX2 = parseInt(screenX/2,10);
+    docHeight = document.body.offsetHeight;
+    };
+
+    this.freeze = function() {
+    // pause animation
+    if (!storm.disabled) {
+        storm.disabled = 1;
+    } else {
+        return false;
+    }
+    storm.timer = null;
+    };
+
+    this.resume = function() {
+    if (storm.disabled) {
+        storm.disabled = 0;
+    } else {
+        return false;
+    }
+    storm.timerInit();
+    };
+
+    this.toggleSnow = function() {
+    if (!storm.flakes.length) {
+        // first run
+        storm.start();
+    } else {
+        storm.active = !storm.active;
+        if (storm.active) {
+        storm.show();
+        storm.resume();
+        } else {
+        storm.stop();
+        //storm.freeze();
+        }
+    }
+    };
+
+    this.stop = function() {
+    var i;
+    this.freeze();
+    for (i=0; i<this.flakes.length; i++) {
+        this.flakes[i].o.style.display = 'none';
+    }
+    storm.events.remove(window,'scroll',storm.scrollHandler);
+    //storm.events.remove(window,'resize',storm.resizeHandler);
+    if (storm.freezeOnBlur) {
+        if (isIE) {
+        storm.events.remove(document,'focusout',storm.freeze);
+        storm.events.remove(document,'focusin',storm.resume);
+        } else {
+        storm.events.remove(window,'blur',storm.freeze);
+        storm.events.remove(window,'focus',storm.resume);
+        }
+    }
+    };
+
+    this.show = function() {
+    var i;
+    for (i=0; i<this.flakes.length; i++) {
+        this.flakes[i].o.style.display = 'block';
+    }
+    };
+
+    this.SnowFlake = function(type,x,y) {
+    var s = this;
+    this.type = type;
+    this.x = x||parseInt(rnd(screenX-20),10);
+    this.y = (!isNaN(y)?y:-rnd(screenY)-12);
+    this.vX = null;
+    this.vY = null;
+    this.vAmpTypes = [1,1.2,1.4,1.6,1.8]; // "amplification" for vX/vY (based on flake size/type)
+    this.vAmp = this.vAmpTypes[this.type] || 1;
+    this.melting = false;
+    this.meltFrameCount = storm.meltFrameCount;
+    this.meltFrames = storm.meltFrames;
+    this.meltFrame = 0;
+    this.twinkleFrame = 0;
+    this.active = 1;
+    this.fontSize = (10+(this.type/5)*10);
+    this.o = document.createElement('div');
+    this.o.innerHTML = storm.snowCharacter;
+    if (storm.className) {
+        this.o.setAttribute('class', storm.className);
+    }
+    this.o.style.color = storm.snowColor;
+    this.o.style.position = (fixedForEverything?'fixed':'absolute');
+    if (storm.useGPU && features.transform.prop) {
+        // GPU-accelerated snow.
+        this.o.style[features.transform.prop] = 'translate3d(0px, 0px, 0px)';
+    }
+    this.o.style.width = storm.flakeWidth+'px';
+    this.o.style.height = storm.flakeHeight+'px';
+    this.o.style.fontFamily = 'arial,verdana';
+    this.o.style.cursor = 'default';
+    this.o.style.overflow = 'hidden';
+    this.o.style.fontWeight = 'normal';
+    this.o.style.zIndex = storm.zIndex;
+    docFrag.appendChild(this.o);
+
+    this.refresh = function() {
+        if (isNaN(s.x) || isNaN(s.y)) {
+        // safety check
+        return false;
+        }
+        storm.setXY(s.o, s.x, s.y);
+    };
+
+    this.stick = function() {
+        if (noFixed || (storm.targetElement !== document.documentElement && storm.targetElement !== document.body)) {
+        s.o.style.top = (screenY+scrollY-storm.flakeHeight)+'px';
+        } else if (storm.flakeBottom) {
+        s.o.style.top = storm.flakeBottom+'px';
+        } else {
+        s.o.style.display = 'none';
+        s.o.style.bottom = '0%';
+        s.o.style.position = 'fixed';
+        s.o.style.display = 'block';
+        }
+    };
+
+    this.vCheck = function() {
+        if (s.vX>=0 && s.vX<0.2) {
+        s.vX = 0.2;
+        } else if (s.vX<0 && s.vX>-0.2) {
+        s.vX = -0.2;
+        }
+        if (s.vY>=0 && s.vY<0.2) {
+        s.vY = 0.2;
+        }
+    };
+
+    this.move = function() {
+        var vX = s.vX*windOffset, yDiff;
+        s.x += vX;
+        s.y += (s.vY*s.vAmp);
+        if (s.x >= screenX || screenX-s.x < storm.flakeWidth) { // X-axis scroll check
+        s.x = 0;
+        } else if (vX < 0 && s.x-storm.flakeLeftOffset < -storm.flakeWidth) {
+        s.x = screenX-storm.flakeWidth-1; // flakeWidth;
+        }
+        s.refresh();
+        yDiff = screenY+scrollY-s.y+storm.flakeHeight;
+        if (yDiff<storm.flakeHeight) {
+        s.active = 0;
+        if (storm.snowStick) {
+            s.stick();
+        } else {
+            s.recycle();
+        }
+        } else {
+        if (storm.useMeltEffect && s.active && s.type < 3 && !s.melting && Math.random()>0.998) {
+            // ~1/1000 chance of melting mid-air, with each frame
+            s.melting = true;
+            s.melt();
+            // only incrementally melt one frame
+            // s.melting = false;
+        }
+        if (storm.useTwinkleEffect) {
+            if (s.twinkleFrame < 0) {
+            if (Math.random() > 0.97) {
+                s.twinkleFrame = parseInt(Math.random() * 8, 10);
+            }
+            } else {
+            s.twinkleFrame--;
+            if (!opacitySupported) {
+                s.o.style.visibility = (s.twinkleFrame && s.twinkleFrame % 2 === 0 ? 'hidden' : 'visible');
+            } else {
+                s.o.style.opacity = (s.twinkleFrame && s.twinkleFrame % 2 === 0 ? 0 : 1);
+            }
+            }
+        }
+        }
+    };
+
+    this.animate = function() {
+        // main animation loop
+        // move, check status, die etc.
+        s.move();
+    };
+
+    this.setVelocities = function() {
+        s.vX = vRndX+rnd(storm.vMaxX*0.12,0.1);
+        s.vY = vRndY+rnd(storm.vMaxY*0.12,0.1);
+    };
+
+    this.setOpacity = function(o,opacity) {
+        if (!opacitySupported) {
+        return false;
+        }
+        o.style.opacity = opacity;
+    };
+
+    this.melt = function() {
+        if (!storm.useMeltEffect || !s.melting) {
+        s.recycle();
+        } else {
+        if (s.meltFrame < s.meltFrameCount) {
+            s.setOpacity(s.o,s.meltFrames[s.meltFrame]);
+            s.o.style.fontSize = s.fontSize-(s.fontSize*(s.meltFrame/s.meltFrameCount))+'px';
+            s.o.style.lineHeight = storm.flakeHeight+2+(storm.flakeHeight*0.75*(s.meltFrame/s.meltFrameCount))+'px';
+            s.meltFrame++;
+        } else {
+            s.recycle();
+        }
+        }
+    };
+
+    this.recycle = function() {
+        s.o.style.display = 'none';
+        s.o.style.position = (fixedForEverything?'fixed':'absolute');
+        s.o.style.bottom = 'auto';
+        s.setVelocities();
+        s.vCheck();
+        s.meltFrame = 0;
+        s.melting = false;
+        s.setOpacity(s.o,1);
+        s.o.style.padding = '0px';
+        s.o.style.margin = '0px';
+        s.o.style.fontSize = s.fontSize+'px';
+        s.o.style.lineHeight = (storm.flakeHeight+2)+'px';
+        s.o.style.textAlign = 'center';
+        s.o.style.verticalAlign = 'baseline';
+        s.x = parseInt(rnd(screenX-storm.flakeWidth-20),10);
+        s.y = parseInt(rnd(screenY)*-1,10)-storm.flakeHeight;
+        s.refresh();
+        s.o.style.display = 'block';
+        s.active = 1;
+    };
+
+    this.recycle(); // set up x/y coords etc.
+    this.refresh();
+
+    };
+
+    this.snow = function() {
+    var active = 0, flake = null, i, j;
+    for (i=0, j=storm.flakes.length; i<j; i++) {
+        if (storm.flakes[i].active === 1) {
+        storm.flakes[i].move();
+        active++;
+        }
+        if (storm.flakes[i].melting) {
+        storm.flakes[i].melt();
+        }
+    }
+    if (active<storm.flakesMaxActive) {
+        flake = storm.flakes[parseInt(rnd(storm.flakes.length),10)];
+        if (flake.active === 0) {
+        flake.melting = true;
+        }
+    }
+    if (storm.timer) {
+        features.getAnimationFrame(storm.snow);
+    }
+    };
+
+    this.mouseMove = function(e) {
+    if (!storm.followMouse) {
+        return true;
+    }
+    var x = parseInt(e.clientX,10);
+    if (x<screenX2) {
+        windOffset = -windMultiplier+(x/screenX2*windMultiplier);
+    } else {
+        x -= screenX2;
+        windOffset = (x/screenX2)*windMultiplier;
+    }
+    };
+
+    this.createSnow = function(limit,allowInactive) {
+    var i;
+    for (i=0; i<limit; i++) {
+        storm.flakes[storm.flakes.length] = new storm.SnowFlake(parseInt(rnd(flakeTypes),10));
+        if (allowInactive || i>storm.flakesMaxActive) {
+        storm.flakes[storm.flakes.length-1].active = -1;
+        }
+    }
+    storm.targetElement.appendChild(docFrag);
+    };
+
+    this.timerInit = function() {
+    storm.timer = true;
+    storm.snow();
+    };
+
+    this.init = function() {
+    var i;
+    for (i=0; i<storm.meltFrameCount; i++) {
+        storm.meltFrames.push(1-(i/storm.meltFrameCount));
+    }
+    storm.randomizeWind();
+    storm.createSnow(storm.flakesMax); // create initial batch
+    storm.events.add(window,'resize',storm.resizeHandler);
+    storm.events.add(window,'scroll',storm.scrollHandler);
+    if (storm.freezeOnBlur) {
+        if (isIE) {
+        storm.events.add(document,'focusout',storm.freeze);
+        storm.events.add(document,'focusin',storm.resume);
+        } else {
+        storm.events.add(window,'blur',storm.freeze);
+        storm.events.add(window,'focus',storm.resume);
+        }
+    }
+    storm.resizeHandler();
+    storm.scrollHandler();
+    if (storm.followMouse) {
+        storm.events.add(isIE?document:window,'mousemove',storm.mouseMove);
+    }
+    storm.animationInterval = Math.max(20,storm.animationInterval);
+    storm.timerInit();
+    };
+
+    this.start = function(bFromOnLoad) {
+    if (!didInit) {
+        didInit = true;
+    } else if (bFromOnLoad) {
+        // already loaded and running
+        return true;
+    }
+    if (typeof storm.targetElement === 'string') {
+        var targetID = storm.targetElement;
+        storm.targetElement = document.getElementById(targetID);
+        if (!storm.targetElement) {
+        throw new Error('Snowstorm: Unable to get targetElement "'+targetID+'"');
+        }
+    }
+    if (!storm.targetElement) {
+        storm.targetElement = (document.body || document.documentElement);
+    }
+    if (storm.targetElement !== document.documentElement && storm.targetElement !== document.body) {
+        // re-map handler to get element instead of screen dimensions
+        storm.resizeHandler = storm.resizeHandlerAlt;
+        //and force-enable pixel positioning
+        storm.usePixelPosition = true;
+    }
+    storm.resizeHandler(); // get bounding box elements
+    storm.usePositionFixed = (storm.usePositionFixed && !noFixed && !storm.flakeBottom); // whether or not position:fixed is to be used
+    if (window.getComputedStyle) {
+        // attempt to determine if body or user-specified snow parent element is relatlively-positioned.
+        try {
+        targetElementIsRelative = (window.getComputedStyle(storm.targetElement, null).getPropertyValue('position') === 'relative');
+        } catch(e) {
+        // oh well
+        targetElementIsRelative = false;
+        }
+    }
+    fixedForEverything = storm.usePositionFixed;
+    if (screenX && screenY && !storm.disabled) {
+        storm.init();
+        storm.active = true;
+    }
+    };
+
+    function doDelayedStart() {
+
+        window.setTimeout(function() {
+            storm.start(true);
+        }, 20);
+        // event cleanup
+        storm.events.remove(isIE?document:window,'mousemove',doDelayedStart);
+
+        const homebtn = document.getElementById("home");
+        homebtn.addEventListener("click", snowStorm.toggleSnow);
+
+        const startbtn = document.getElementById("startButton");
+        startbtn.addEventListener("click", delayedStopSnow);
+
+    }
+
+    function doStart() {
+    if (!storm.excludeMobile || !isMobile) {
+        doDelayedStart();
+    }
+    // event cleanup
+    storm.events.remove(window, 'load', doStart);
+    }
+
+    // hooks for starting the snow
+    if (storm.autoStart) {
+    storm.events.add(window, 'load', doStart, false);
+    }
+
+    function delayedStopSnow(){
+        window.setTimeout(snowStorm.toggleSnow, 8000);
+    }
+
+    return this;
+
+    }(window, document));
+
+
+
+
+
+</script>
+</html>

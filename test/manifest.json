@@ -1,0 +1,45 @@
+{
+  "name": "AIRAIR",
+  "short_name": "AIRAIR",
+  "start_url": "/",
+  "background_color": "#0093ff",
+  "display": "standalone",
+  "orientation": "landscape",
+  "icons": [
+    {
+      "src": "styles/default/logo-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "styles/default/logo-256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "styles/default/logo-128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "styles/default/logo-96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "styles/default/logo-48.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#0093ff",
+  "display_override": [
+    "fullscreen",
+    "standalone"
+  ],
+  "categories": [
+    "games"
+  ],
+  "description": "AirAir is a free-to-play jet fighters plane game with numerous game modes for every type of game player. Chill with friends, fight alongside your team for victory or build your own legend !"
+}
