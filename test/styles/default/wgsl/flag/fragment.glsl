@@ -1,6 +1,7 @@
 precision lowp float;
     
-   
+        // Helper Functions
+        #include<helperFunctions>
                     
     	varying vec2 vUV;
         varying float zOffset1;
@@ -19,6 +20,7 @@ precision lowp float;
 
         const vec4 colorBlue = vec4(0.0,0.5,1.0, 1.0);
         const vec4 colorRed = vec4(0.85, 0.1, 0.0, 1.0);
+
 
     	void main(void) {
             vec4 c = vec4(0.0, 1.0, 0.0, 1.0);
