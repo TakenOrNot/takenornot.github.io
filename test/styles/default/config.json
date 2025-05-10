@@ -1,4 +1,8 @@
 {
+    "mapGenerator": {
+      "mountainsSPS": "false",
+      "mapHeightmap": "true"
+    },  
     "colors": {
         "shipDefaultColor": { "r": 1.0, "g": 1.0, "b": 1.0 },
         "shipDefaultColorBump": { "r": 2.5, "g": 2.5, "b": 2.5 },
