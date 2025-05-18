@@ -1,7 +1,7 @@
 {
     "mapGenerator": {
-      "mountainsSPS": "false",
-      "mapHeightmap": "true",
+      "mountainsSPS": "true",
+      "mapHeightmap": "false",
       "mapHeightmapMinHeight": 0,
       "mapHeightmapMaxHeight": 10.24
     },  
