@@ -1,124 +1,129 @@
 {
-    "mapGenerator": {
-      "mountainsSPS": "false",
-      "mapHeightmap": "true"
-    },  
-    "colors": {
-        "shipDefaultColor": { "r": 1.0, "g": 1.0, "b": 1.0 },
-        "shipDefaultColorBump": { "r": 2.5, "g": 2.5, "b": 2.5 },
-        "shipDefaultColorBlue": { "r": 0.5, "g": 0.9, "b": 0.9 },
-        "shipDefaultColorBlueBump": { "r": 1.0, "g": 2.5, "b": 3.0 },
-        "shipDefaultColorRed": { "r": 0.9, "g": 0.5, "b": 0.5 },
-        "shipDefaultColorRedBump": { "r": 2.75, "g": 1.2, "b": 1.0 },
-        "shipDefaultColorGreen": { "r": 0.9, "g": 0.8, "b": 0.1 },
-        "shipDefaultColorGreenBump": { "r": 1.2, "g": 2.4, "b": 0.3 },
+  "mapGenerator": {
+    "mapHeightmap": "true",
+    "mapHeightmapMinHeight": 0,
+    "mapHeightmapMaxHeight": 10.24,
+    "mountainsSPS": "false",
+    "waterPlane": "true",
+    "skyBox": "true"
     
-        "boosterDefaultColor": { "r": 1.0, "g": 1.0, "b": 1.0 },
-        "boosterDefaultColorBump": { "r": 5.0, "g": 5.0, "b": 5.0 },
-        "boosterDefaultColorGreen": { "r": 0.5, "g": 0.8, "b": 0.6 },
-        "boosterDefaultColorGreenBump": { "r": 2.0, "g": 8.0, "b": 2.0 },
-        "boosterDefaultColorRed": { "r": 1.1, "g": 0.55, "b": 0.9 },
-        "boosterDefaultColorRedBump": { "r": 8.0, "g": 1.4, "b": 4.0 },
-        "boosterDefaultColorBlue": { "r": 0.45, "g": 0.8, "b": 1.5 },
-        "boosterDefaultColorBlueBump": { "r": 1.5, "g": 9.0, "b": 9.0 },
-    
-        "shipDefaultColorGold": { "r": 0.94, "g": 0.8, "b": 9.0 },
-        "shipDefaultColorGoldBump": { "r": 4.2, "g": 2.4, "b": 0.6 },
-    
-        "missileDefaultColorBlue": { "r": 0.0, "g": 1.8, "b": 1.8 },
-        "missileDefaultColorRed": { "r": 1.8, "g": 0.0, "b": 0.0 },
-        "missileDefaultColorGreen": { "r": 2.0, "g": 2.0, "b": 0.6 },
-    
-        "nameplateDefaultColorCSSTeam1": "#7EF5EC",
-        "nameplateShadowDefaultColorCSSTeam1": "#04002f",
-        "nameplateDefaultColorCSSTeam2": "#FB5960",
-        "nameplateShadowDefaultColorCSSTeam2": "#5a1303",
+  },  
+  "colors": {
+      "shipDefaultColor": { "r": 1.0, "g": 1.0, "b": 1.0 },
+      "shipDefaultColorBump": { "r": 2.5, "g": 2.5, "b": 2.5 },
+      "shipDefaultColorBlue": { "r": 0.5, "g": 0.9, "b": 0.9 },
+      "shipDefaultColorBlueBump": { "r": 1.0, "g": 2.5, "b": 3.0 },
+      "shipDefaultColorRed": { "r": 0.9, "g": 0.5, "b": 0.5 },
+      "shipDefaultColorRedBump": { "r": 2.75, "g": 1.2, "b": 1.0 },
+      "shipDefaultColorGreen": { "r": 0.9, "g": 0.8, "b": 0.1 },
+      "shipDefaultColorGreenBump": { "r": 1.2, "g": 2.4, "b": 0.3 },
+  
+      "boosterDefaultColor": { "r": 1.0, "g": 1.0, "b": 1.0 },
+      "boosterDefaultColorBump": { "r": 5.0, "g": 5.0, "b": 5.0 },
+      "boosterDefaultColorGreen": { "r": 0.5, "g": 0.8, "b": 0.6 },
+      "boosterDefaultColorGreenBump": { "r": 2.0, "g": 8.0, "b": 2.0 },
+      "boosterDefaultColorRed": { "r": 1.1, "g": 0.55, "b": 0.9 },
+      "boosterDefaultColorRedBump": { "r": 8.0, "g": 1.4, "b": 4.0 },
+      "boosterDefaultColorBlue": { "r": 0.45, "g": 0.8, "b": 1.5 },
+      "boosterDefaultColorBlueBump": { "r": 1.5, "g": 9.0, "b": 9.0 },
+  
+      "shipDefaultColorGold": { "r": 0.94, "g": 0.8, "b": 9.0 },
+      "shipDefaultColorGoldBump": { "r": 4.2, "g": 2.4, "b": 0.6 },
+  
+      "missileDefaultColorBlue": { "r": 0.0, "g": 1.8, "b": 1.8 },
+      "missileDefaultColorRed": { "r": 1.8, "g": 0.0, "b": 0.0 },
+      "missileDefaultColorGreen": { "r": 2.0, "g": 2.0, "b": 0.6 },
+  
+      "nameplateDefaultColorCSSTeam1": "#7EF5EC",
+      "nameplateShadowDefaultColorCSSTeam1": "#04002f",
+      "nameplateDefaultColorCSSTeam2": "#FB5960",
+      "nameplateShadowDefaultColorCSSTeam2": "#5a1303",
 
-        "lightColorsArray": [
-            { "r": 33, "g": 50, "b": 53 },
-            { "r": 51, "g": 50, "b": 51 },
-            { "r": 75, "g": 51, "b": 51 },
-            { "r": 100, "g": 51, "b": 51 },
-            { "r": 125, "g": 105, "b": 105 },
-            { "r": 125, "g": 105, "b": 105 },
-            { "r": 127, "g": 114, "b": 105 },
-            { "r": 125, "g": 110, "b": 105 },
-            { "r": 125, "g": 105, "b": 105 },
-            { "r": 100, "g": 51, "b": 51 },
-            { "r": 75, "g": 51, "b": 51 },
-            { "r": 33, "g": 50, "b": 53 }
-        ], 
+      "lightColorsArray": [
+          { "r": 33, "g": 50, "b": 53 },
+          { "r": 51, "g": 50, "b": 51 },
+          { "r": 75, "g": 51, "b": 51 },
+          { "r": 100, "g": 51, "b": 51 },
+          { "r": 125, "g": 105, "b": 105 },
+          { "r": 125, "g": 105, "b": 105 },
+          { "r": 127, "g": 114, "b": 105 },
+          { "r": 125, "g": 110, "b": 105 },
+          { "r": 125, "g": 105, "b": 105 },
+          { "r": 100, "g": 51, "b": 51 },
+          { "r": 75, "g": 51, "b": 51 },
+          { "r": 33, "g": 50, "b": 53 }
+      ], 
 
-        "skyboxGradientTopColorsArray": [
-            { "r": 25, "g": 20, "b": 60 },
-            { "r": 25, "g": 10, "b": 50 },
-            { "r": 25, "g": 35, "b": 150 },
-            { "r": 25, "g": 85, "b": 70 },
-            { "r": 25, "g": 90, "b": 70 },
-            { "r": 25, "g": 65, "b": 130 },
-            { "r": 25, "g": 77, "b": 155 },
-            { "r": 25, "g": 62, "b": 125 },
-            { "r": 25, "g": 60, "b": 150 },
-            { "r": 25, "g": 60, "b": 150 },
-            { "r": 25, "g": 50, "b": 70 },
-            { "r": 25, "g": 40, "b": 60 }
-        ],
+      "skyboxGradientTopColorsArray": [
+          { "r": 25, "g": 20, "b": 60 },
+          { "r": 25, "g": 10, "b": 50 },
+          { "r": 25, "g": 35, "b": 150 },
+          { "r": 25, "g": 85, "b": 70 },
+          { "r": 25, "g": 90, "b": 70 },
+          { "r": 25, "g": 65, "b": 130 },
+          { "r": 25, "g": 77, "b": 155 },
+          { "r": 25, "g": 62, "b": 125 },
+          { "r": 25, "g": 60, "b": 150 },
+          { "r": 25, "g": 60, "b": 150 },
+          { "r": 25, "g": 50, "b": 70 },
+          { "r": 25, "g": 40, "b": 60 }
+      ],
 
-        "skyboxGradientBottomColorsArray": [
-            { "r": 125, "g": 40, "b": 60 },
-            { "r": 125, "g": 20, "b": 50 },
-            { "r": 200, "g": 70, "b": 150 },
-            { "r": 200, "g": 170, "b": 70 },
-            { "r": 240, "g": 180, "b": 70 },
-            { "r": 150, "g": 130, "b": 130 },
-            { "r": 155, "g": 155, "b": 155 },
-            { "r": 135, "g": 125, "b": 125 },
-            { "r": 180, "g": 120, "b": 150 },
-            { "r": 239, "g": 120, "b": 150 },
-            { "r": 250, "g": 100, "b": 70 },
-            { "r": 125, "g": 80, "b": 60 }
-        ],
-        
-        "fogColor": { "r": 0.5, "g": 0.5, "b": 0.6 },
-        "fogColor2": { "r": 0.3, "g": 0.5, "b": 0.6 },
-        "lightDiffuseColor": { "r": 0.5, "g": 0.2, "b": 0.2 },
-        "cloudsBaseColor": { "r": 1, "g": 1, "b": 1 }
-        
+      "skyboxGradientBottomColorsArray": [
+          { "r": 125, "g": 40, "b": 60 },
+          { "r": 125, "g": 20, "b": 50 },
+          { "r": 200, "g": 70, "b": 150 },
+          { "r": 200, "g": 170, "b": 70 },
+          { "r": 240, "g": 180, "b": 70 },
+          { "r": 150, "g": 130, "b": 130 },
+          { "r": 155, "g": 155, "b": 155 },
+          { "r": 135, "g": 125, "b": 125 },
+          { "r": 180, "g": 120, "b": 150 },
+          { "r": 239, "g": 120, "b": 150 },
+          { "r": 250, "g": 100, "b": 70 },
+          { "r": 125, "g": 80, "b": 60 }
+      ],
+      
+      "fogColor": { "r": 0.5, "g": 0.5, "b": 0.6 },
+      "fogColor2": { "r": 0.3, "g": 0.5, "b": 0.6 },
+      "lightDiffuseColor": { "r": 0.5, "g": 0.2, "b": 0.2 },
+      "cloudsBaseColor": { "r": 1, "g": 1, "b": 1 },
+      "mountainsSPSrenderableColor": { "r": 0.6, "g": 0.35, "b": 0.2 } 
 
+  },
+  "weather": {
+      "cloudCover": 10,
+      "cloudsRainyness": 0,
+      "windDirection": {"x": 0.008, "z": 0}
+  },
+  "shaders": {
+    "flag": {
+      "vertex": "flag/vertex.glsl",
+      "fragment": "flag/fragment.glsl"
     },
-    "weather": {
-        "cloudCover": 10,
-        "cloudsRainyness": 0
+    "HUD": {
+      "vertex": "hud/vertex.glsl",
+      "fragment": "hud/fragment.glsl"
     },
-    "shaders": {
-      "flag": {
-        "vertex": "flag/vertex.glsl",
-        "fragment": "flag/fragment.glsl"
-      },
-      "HUD": {
-        "vertex": "hud/vertex.glsl",
-        "fragment": "hud/fragment.glsl"
-      },
-      "terrain": {
-        "vertex": "terrain/vertex.glsl",
-        "fragment": "terrain/fragment.glsl"
-      },
-      "water": {
-        "vertex": "water/vertex.glsl",
-        "fragment": "water/fragment.glsl"
-      },
-      "terrainDepth": {
-        "vertex": "terrainDepth/vertex.glsl",
-        "fragment": "terrainDepth/fragment.glsl"
-      },
-      "cloudsDepth": {
-        "vertex": "cloudsDepth/vertex.glsl",
-        "fragment": "cloudsDepth/fragment.glsl"
-      },
-      "sky": {
-        "vertex": "sky/vertex.glsl",
-        "fragment": "sky/fragment.glsl"
-      }
+    "terrain": {
+      "vertex": "terrain/vertex.glsl",
+      "fragment": "terrain/fragment.glsl"
+    },
+    "water": {
+      "vertex": "water/vertex.glsl",
+      "fragment": "water/fragment.glsl"
+    },
+    "terrainDepth": {
+      "vertex": "terrainDepth/vertex.glsl",
+      "fragment": "terrainDepth/fragment.glsl"
+    },
+    "cloudsDepth": {
+      "vertex": "cloudsDepth/vertex.glsl",
+      "fragment": "cloudsDepth/fragment.glsl"
+    },
+    "sky": {
+      "vertex": "sky/vertex.glsl",
+      "fragment": "sky/fragment.glsl"
     }
   }
-  
+}
