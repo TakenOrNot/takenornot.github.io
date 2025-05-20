@@ -35,6 +35,7 @@ precision lowp float;
                 vec4 finalColor = vec4(1.0,0.0,0.0,1.0);
                 //bool flatMode = flyCam  > 0.0;
                 if (flyCam  > 0.0){
+                    
                     //float pseudoBrightness = clamp((bottomColorRef.r + bottomColorRef.g + bottomColorRef.b) / 1.0, 0.0, 2.0);
                     //float pseudoBrightness = clamp((diffuseColor.r + diffuseColor.g + diffuseColor.b), 0.0, 2.0);
                         //bottomColorRef = bottomColorRef * (2.0 - pseudoBrightness);
