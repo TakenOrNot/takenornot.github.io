@@ -1,0 +1,74 @@
+{
+  "data": [
+    {
+      "name": "Europe",
+      "id": "eu",
+      "games": [
+        {
+          "type": "1",
+          "id": "ffa1",
+          "name": "Free For All #1",
+          "nameShort": "FFA #1",
+          "host": "eu.airmash.xyz",
+          "path": "ffa",
+          "players": 0,
+          "bots": 0
+        },
+        {
+          "type": "3",
+          "id": "btr1",
+          "name": "Battle Royale #1",
+          "nameShort": "BTR #1",
+          "host": "eu.airmash.xyz",
+          "path": "btr",
+          "players": 0
+        }
+      ]
+    },
+    {
+      "name": "US",
+      "id": "us",
+      "games": [
+        {
+          "type": "1",
+          "id": "ffa1",
+          "name": "Free For All #1",
+          "nameShort": "FFA #1",
+          "host": "ffa.airmash.xyz",
+          "path": "ffa",
+          "players": 0,
+          "bots": 0
+        },
+        {
+          "type": "2",
+          "id": "ctf1",
+          "name": "Capture The Flag #1",
+          "nameShort": "CTF #1",
+          "host": "airmash.xyz",
+          "path": "ctf",
+          "players": 0,
+          "bots": 0
+        },
+        {
+          "type": "3",
+          "id": "btr1",
+          "name": "Battle Royale #1",
+          "nameShort": "BTR #1",
+          "host": "btr.airmash.xyz",
+          "path": "btr",
+          "players": 0
+        },
+        {
+          "type": "4",
+          "id": "box1",
+          "name": "Box Experiments #1",
+          "nameShort": "BOX #1",
+          "host": "box-server.mooo.com",
+          "path": "ffa"
+        }
+      ]
+    }
+  ],
+  "country": "",
+  "protocol": 5
+}
