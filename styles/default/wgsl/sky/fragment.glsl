@@ -10,16 +10,13 @@ uniform vec3 bottomColor;
 uniform vec3 fogColor;
 uniform float pseudoBrightness;
 
-// Inputs from vertex shader (must match vertex output locations)
-layout(location = 0) in float clipped;
-layout(location = 1) in vec4 vPosition;
-layout(location = 2) in vec3 vNormal;
-layout(location = 3) in vec3 pos;
-layout(location = 4) in float fogDensity;
+// Entrées depuis le vertex shader (appariées par nom par Babylon)
+varying float clipped;
+varying vec4 vPosition;
+varying vec3 vNormal;
+varying vec3 pos;
+varying float fogDensity;
 
-// Output
-layout(location = 0) out vec4 fragColor;
-            
             void main(void){
                 float alpha = 0.0; 
                 float h = 0.0; 
@@ -202,6 +199,6 @@ layout(location = 0) out vec4 fragColor;
                 }
                 
                 
-                fragColor = finalColor;
+                gl_FragColor = finalColor;
                 #include<imageProcessingCompatibility>
             }

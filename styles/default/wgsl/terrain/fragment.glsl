@@ -1,39 +1,23 @@
-#version 300 es
-
-// Set precision explicitly for float and int
 precision mediump float;
 precision mediump int;
 
-// === Inputs with explicit locations matching vertex shader ===
-layout(location = 0) in vec2 vUV;
-layout(location = 1) in vec2 vUV2;
-layout(location = 2) in vec2 vUV4;
-layout(location = 3) in vec4 vPosPack;
-layout(location = 4) in vec4 vFogPack;
-layout(location = 5) in vec4 vLightShadow;
-layout(location = 6) in vec4 v0PositionFromLight;
-layout(location = 7) in vec3 vPosition;
-layout(location = 8) in vec3 normalInterp;
+// Entrées depuis le vertex shader (appariées par nom par Babylon)
+varying vec2 vUV;
+varying vec2 vUV2;
+varying vec2 vUV4;
+varying vec4 vPosPack;      // xyz = pos, w = isSnow
+varying vec4 vFogPack;      // x = isInMapBounds, y = distd, z = fogDensity, w = clipped
+varying vec4 vLightShadow;  // xyz = lightDir
+varying vec4 v0PositionFromLight;
+varying vec3 vPosition;
+varying vec3 normalInterp;
 
 #ifdef GAMEBTR
-    layout(location = 9) in float distFromCenterOfFirewall;
+    varying float distFromCenterOfFirewall;
     uniform float firewall_radius;
 #endif
 
-// === Unpacked Variables ===
-float clipped = vFogPack.w;
-float fogDensity = vFogPack.z;
-float isSnow = vPosPack.w;
-
 uniform vec3 lightPos;
-vec3 lightDir = vLightShadow.xyz;
-
-vec3 pos = vPosPack.xyz;
-
-// UV coordinates from vertex shader
-vec2 localUV = vUV;
-vec2 localUV2 = vUV2;
-vec2 localUV4 = vUV4;
 
 // === Uniforms ===
 uniform float minusOneToOneTime;
@@ -74,9 +58,6 @@ uniform float shadowUVXoffset;
 
 // Fog properties
 uniform vec3 fogColor;
-
-// Output
-layout(location = 0) out vec4 fragColor;
 
 
 #define inline
@@ -139,7 +120,7 @@ float computeShadow(sampler2D shadowSampler, sampler2D shadowSamplerClouds, vec4
     //}
     //uv= vec2((vUV3.x/163.) + shadowUVXoffset,((vUV3.y/163.)));
     //uv= vec2((vUV3.x) + shadowUVXoffset,(vUV3.y));
-    uv = vec2(0.5 + (localUV4.x / 163.0) + shadowUVXoffset,0.5 + (localUV4.y/163.));
+    uv = vec2(0.5 + (vUV4.x / 163.0) + shadowUVXoffset,0.5 + (vUV4.y/163.));
     float cloudShad = texture2D(shadowSamplerClouds,uv).x;
                             float cloudShad1 = texture2D(shadowSamplerClouds,uv + offset1).x;
                             float cloudShad2 = texture2D(shadowSamplerClouds,uv + offset2).x;
@@ -175,6 +156,14 @@ float computeShadow(sampler2D shadowSampler, sampler2D shadowSamplerClouds, vec4
 }
 void main()
 {
+  // Dépaquetage des varyings (déplacé ici : un initialiseur global
+  // doit être une expression constante, refusé par le compilateur WebGPU)
+  float clipped = vFogPack.w;
+  float fogDensity = vFogPack.z;
+  float isSnow = vPosPack.w;
+  vec3 lightDir = vLightShadow.xyz;
+  vec3 pos = vPosPack.xyz;
+
   vec3 color3=mix(vec3(.1,.2,.4),vec3(.5),fogDensity);
   vec4 color4=vec4(color3,1);
   if(clipped>0.||fogDensity>1.22)
@@ -335,7 +324,7 @@ void main()
   
 #endif
 
-  fragColor=color4;
+  gl_FragColor=color4;
   
 #include<imageProcessingCompatibility>
 

@@ -1,24 +1,18 @@
-#version 300 es
 precision mediump float;
 
-// Inputs (matching vertex shader outputs)
-layout(location = 0) in vec4 v0PositionFromLight;
-layout(location = 1) in float clipped;
-layout(location = 2) in vec3 vPosition;
-layout(location = 3) in vec3 vNormal;
-layout(location = 4) in vec2 vUV;
-layout(location = 5) in vec2 vUV2;
-layout(location = 6) in vec2 vUV4;
-layout(location = 7) in vec4 positionCS;
-layout(location = 8) in vec3 screenPos;
-layout(location = 9) in vec3 pos;
-layout(location = 10) in float displacement;
-layout(location = 11) in float isInMapBoundsStrict;
-layout(location = 12) in float distd;
-layout(location = 13) in float fogDensity;
+// Entrées depuis le vertex shader (appariées par nom par Babylon)
+varying vec4 v0PositionFromLight;
+varying vec3 vNormal;
+varying vec2 vUV;
+varying vec2 vUV2;
+varying vec2 vUV4;
+varying vec4 positionCS;
+varying vec3 pos;
+varying float isInMapBoundsStrict;
+varying float fogDensity;
 
 #ifdef GAMEBTR
-    layout(location = 14) in float distFromCenterOfFirewall;
+    varying float distFromCenterOfFirewall;
 #endif
 
 // Uniforms
@@ -250,8 +244,6 @@ uniform mat4 world;
                     uniform vec3 bottomColor;
 
                     //include<clipPlaneFragmentDeclaration>
-// Output
-layout(location = 0) out vec4 fragColor;
 
                     void main(void) {
                         
@@ -389,9 +381,9 @@ layout(location = 0) out vec4 fragColor;
                                 float smoothness = 2.5;
                                 //lowp float specAngle = acos(dot(normalize(lightDir - viewDir), new_normal));
                                 lowp float specAngle = acos(dot(normalize(lightDir - viewDir), new_normal));
-                                float exp = specAngle/smoothness;
+                                float specExp = specAngle/smoothness;
                                 
-                                specular = pow(-exp, 8.0);
+                                specular = pow(-specExp, 8.0);
                                 //specular = (1.0 - pow(-exp,exp)) + 1.5;
                             
     
@@ -970,7 +962,7 @@ layout(location = 0) out vec4 fragColor;
 
                             
 
-                            fragColor = waterColor10;
+                            gl_FragColor = waterColor10;
 
                             #include<imageProcessingCompatibility>
                             

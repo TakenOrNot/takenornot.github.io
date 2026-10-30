@@ -1,30 +1,25 @@
-#version 300 es
+precision mediump float;
+precision mediump int;
 
-// Set precision explicitly for float and int
-precision mediump float;  // Medium precision for floats
-precision mediump int;    // Medium precision for integers
+// Attributs (emplacements gérés par Babylon)
+attribute vec3 position;
+attribute vec3 normal;
+attribute vec2 uv;
 
-// === Input variables ===
-layout(location = 0) in vec3 position;
-layout(location = 1) in vec3 normal;
-layout(location = 2) in vec2 uv;
-
-// === Output variables with explicit locations ===
-layout(location = 0) out vec2 vUV;             // UV coordinates
-layout(location = 1) out vec2 vUV2;            // Second UV set
-layout(location = 2) out vec2 vUV4;            // Third UV set
-layout(location = 3) out vec4 vPosPack;        // xyz = pos, w = isSnow
-layout(location = 4) out vec4 vFogPack;        // x=isInMapBounds, y=distd, z=fogDensity, w=clipped
-layout(location = 5) out vec4 vLightShadow;    // xyz = lightDir, w = unused
-layout(location = 6) out vec4 v0PositionFromLight; // shadow coordinates
-layout(location = 7) out vec3 vPosition;      // World space position
-layout(location = 8) out vec3 normalInterp;   // Transformed normal
+// Sorties vers le fragment shader (appariées par nom par Babylon)
+varying vec2 vUV;                 // UV coordinates
+varying vec2 vUV2;                // Second UV set
+varying vec2 vUV4;                // Third UV set
+varying vec4 vPosPack;            // xyz = pos, w = isSnow
+varying vec4 vFogPack;            // x=isInMapBounds, y=distd, z=fogDensity, w=clipped
+varying vec4 vLightShadow;        // xyz = lightDir, w = unused
+varying vec4 v0PositionFromLight; // shadow coordinates
+varying vec3 vPosition;
+varying vec3 normalInterp;
 
 #ifdef GAMEBTR
-    layout(location = 9) out float distFromCenterOfFirewall;
+    varying float distFromCenterOfFirewall;
 #endif
-
-
 
 // === Uniforms ===
 uniform float minusOneToOneTime;
@@ -44,7 +39,7 @@ void main(void) {
     vec2 localUV = uv;
     localUV.x *= 2.0; // Adjust UV for aspect ratio
     vPosition = position;
-    
+
     // World position calculation
     vec4 pos4 = world * p;
     vec3 posWorld = vec3(pos4) / pos4.w;
@@ -64,8 +59,7 @@ void main(void) {
     // === Explicitly Convert Booleans to Floats ===
     float isInMapBounds = (posWorld.x < 164.0 && posWorld.x > -164.0 && posWorld.z < 82.0 && posWorld.z > -82.0) ? 1.0 : 0.0;
 
-    // Fix for isSnow expression:
-    float isSnow = (float(posWorld.x < -12.0) * float(posWorld.x > -52.0 - (14.0 * clamp((abs(posWorld.z) - 40.0) / 20.0, 0.0, 1.0)))) + 
+    float isSnow = (float(posWorld.x < -12.0) * float(posWorld.x > -52.0 - (14.0 * clamp((abs(posWorld.z) - 40.0) / 20.0, 0.0, 1.0)))) +
                (14.0 * clamp((abs(posWorld.z) - 65.0) / 20.0, 0.0, 1.0)) > 0.0 && (posWorld.z > 40.0) ? 1.0 : 0.0;
 
     // Calculate distance to camera and fog density
@@ -82,9 +76,8 @@ void main(void) {
     vec2 localUV4 = vec2(pos4.x / 2.0, pos4.z);
     gl_Position = worldViewProjection * p;
 
-    // Fix for clipped calculation:
     float overDrawOffset = (flyCam == 1.0) ? 5.0 : 14.0;
-    float clipped = (isInMapBounds == 0.0 || position.y < 0.0 || fogDensity > 1.5 || 
+    float clipped = (isInMapBounds == 0.0 || position.y < 0.0 || fogDensity > 1.5 ||
                     any(lessThan(gl_Position.xyz, -gl_Position.www - overDrawOffset)) ||
                     any(greaterThan(gl_Position.xyz, gl_Position.www + overDrawOffset))) ? 1.0 : 0.0;
 

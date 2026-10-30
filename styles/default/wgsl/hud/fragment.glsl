@@ -1,20 +1,16 @@
-#version 300 es
 precision lowp float;
 
-// Inputs matching vertex outputs
-layout(location = 0) in vec3 pos;
-layout(location = 1) in vec3 vPosition;
-layout(location = 2) in vec2 vUV;
-layout(location = 3) in vec3 vNormal;
+// Entrées depuis le vertex shader (appariées par nom par Babylon)
+varying vec3 pos;
+varying vec3 vPosition;
+varying vec2 vUV;
+varying vec3 vNormal;
 
 // Uniforms
 uniform vec2 screenSize;
 uniform mat4 world;
 uniform float energy_value;
 uniform float health_value;
-
-// Output
-layout(location = 0) out vec4 fragColor;
 
             void main(void)
             {
@@ -82,5 +78,5 @@ layout(location = 0) out vec4 fragColor;
                 
                 
                 //vec4 color4 = vec4(0.1,0.0,0.2,0.5);
-                fragColor = color4;
+                gl_FragColor = color4;
             }
